@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../shared/http.service';
 import { Router } from '@angular/router'
-import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 @Component({
   selector: 'app-weighter-report',
   templateUrl: './weighter-report.page.html',
@@ -13,25 +11,10 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
 })
 export class WeighterReportPage implements OnInit {
 
-  constructor(private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private http: HttpService, private router: Router, private route: ActivatedRoute) {
+  constructor( public datepipe: DatePipe, public navCtrl: NavController, private http: HttpService, private router: Router, private route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.records()
       this.LoadReadData();
-      window.addEventListener('offline', () => {
-        this.checkoffline = true;
-        this.offlineAlart = true
-        this.onlineAlart = false;
-
-      });
-      window.addEventListener('online', () => {
-
-        this.onlineAlart = true;
-        this.offlineAlart = false
-        this.checkonline = true;
-
-      });
-
-      this.LoadReadData()
       this.tableRecodrs = []
     });
 
@@ -41,7 +24,6 @@ export class WeighterReportPage implements OnInit {
   }
 
   locLoginType = localStorage.getItem("logintype",)
-  locPermission = localStorage.getItem("permission",)
   locFromDate = localStorage.getItem("fromDate",)
   locToDate = localStorage.getItem("toDate",)
 
@@ -51,9 +33,7 @@ export class WeighterReportPage implements OnInit {
   disableSts: any = false;
   checkoffline: any;
   checkonline: any;
-  buttonDisabled: boolean;
-  onlineAlart: any = true;
-  offlineAlart: any = false
+  
   tableRecodrs: any = []
   totalQuantity: any;
 
@@ -61,7 +41,7 @@ export class WeighterReportPage implements OnInit {
     setTimeout(() => {
       event.target.complete();
 
-    }, 1500);
+    }, 1000);
   }
 
 
@@ -95,7 +75,6 @@ export class WeighterReportPage implements OnInit {
     }
 
     this.http.post('/list_center_date_manual_weight', data).subscribe((response: any) => {
-      console.log(response);
       this.totalQuantity = response.total_quantity
       this.tableRecodrs = response.records;
 

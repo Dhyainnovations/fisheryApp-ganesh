@@ -5,7 +5,6 @@ import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 @Component({
   selector: 'app-center-weight-record',
   templateUrl: './center-weight-record.page.html',
@@ -13,7 +12,7 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
 })
 export class CenterWeightRecordPage implements OnInit {
 
-  constructor(private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
+  constructor( public datepipe: DatePipe, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.Localpermission = localStorage.getItem("permission",)
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
@@ -23,19 +22,7 @@ export class CenterWeightRecordPage implements OnInit {
       this.marketTableRecords()
       this.merchantTableRecords()
       this.stockTableRecords()
-      window.addEventListener('offline', () => {
-        this.checkoffline = true;
-        this.offlineAlart = true
-        this.onlineAlart = false;
-
-      });
-      window.addEventListener('online', () => {
-
-        this.onlineAlart = true;
-        this.offlineAlart = false
-        this.checkonline = true;
-
-      });
+      
     });
 
     this.myDate = new Date();
@@ -45,18 +32,12 @@ export class CenterWeightRecordPage implements OnInit {
     this.todate = this.myDate
   }
 
-
-
-
   ngOnInit() {
     this.locationBasedWeightRecords()
     this.user = localStorage.getItem("Fishery-username",)
     this.bluetoothSts = localStorage.getItem("bluetoothStatus",)
 
   }
-
-
-
 
   myDate: any;
   Localpermission: any;
@@ -66,28 +47,19 @@ export class CenterWeightRecordPage implements OnInit {
   totalweight: any = '';
   tableRecodrs: any = []
   cardRecords: any = []
-
   isVisible: any = false
   lastEntryisVisible: any = false
-
   disableSts: any = false;
-  checkoffline: any;
-  checkonline: any;
   buttonDisabled: boolean;
-  onlineAlart: any = true;
-  offlineAlart: any = false
-
   fromdate: any;
   todate: any;
 
   fromDate(val) {
-    console.log(val);
     this.fromdate = val
 
   }
 
   toDate(val) {
-    console.log(val);
     this.todate = val
   }
 
@@ -102,7 +74,7 @@ export class CenterWeightRecordPage implements OnInit {
     setTimeout(() => {
       event.target.complete();
       this.totalWeight()
-    }, 1500);
+    }, 1000);
   }
 
 
@@ -125,8 +97,6 @@ export class CenterWeightRecordPage implements OnInit {
   locationBasedWeightRecords() {
     this.http.get('/location_manual_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
-      console.log(response);
-
 
     }, (error: any) => {
       console.log(error);
@@ -143,7 +113,6 @@ export class CenterWeightRecordPage implements OnInit {
         this.isVisible = true
         this.lastEntryisVisible = false
       } else {
-
         this.isVisible = false
         this.lastEntryisVisible = true
       }

@@ -24,25 +24,10 @@ export class WeighterPage implements OnInit {
       this.getCategoryList()
       this.getLocationList();
       this.records()
-      window.addEventListener('offline', () => {
-        this.checkoffline = true;
-        this.offlineAlart = true
-        this.onlineAlart = false;
-      });
-      window.addEventListener('online', () => {
-        this.refresh()
-        this.onlineAlart = true;
-        this.offlineAlart = false
-        this.checkonline = true;
-      });
     });
     this.deviceConnected();
-
     this.myDate = new Date();
-
     this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
-
-    console.log(this.myDate);
   }
 
 
@@ -51,28 +36,14 @@ export class WeighterPage implements OnInit {
   }
 
   ngOnInit() {
-
     this.activeItem = ""
-    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
-
-    const start = Date.now();
-    console.log(start);
-
     this.user = localStorage.getItem("Fishery-username",)
-    console.log(this.user);
-
-
   }
 
-  myDate;
+  myDate:any;
   user: any;
   dropdownVisible: any = false;
-
-  // currentDate = new Date();
-
   currentDateTime: any;
-  checkoffline: any;
-  checkonline: any;
   setpushdata: any = [];
   category: any;
   type: any;
@@ -82,15 +53,15 @@ export class WeighterPage implements OnInit {
   categorylist: any = []
   locationlist: any = []
   typelist: any = []
-
   tableRecodrs: any = []
   buttonDisabled: boolean;
-  onlineAlart: any = true;
-  offlineAlart: any = false
-
   recivedWeightValue: any;
-
   activeItem: any;
+  hr:any;
+  updateTime:any;
+  cardType: any;
+  mergesdLocationList: any = []
+
 
   backToPrivios() {
     this.router.navigate(['/center-weight-record'])
@@ -118,7 +89,6 @@ export class WeighterPage implements OnInit {
   localsale(val) {
 
     this.type = val;
-    console.log(this.type);
     this.activeItem = "localsale"
     console.log(val);
     this.http.get('/list_localsale_place',).subscribe((response: any) => {
@@ -132,13 +102,8 @@ export class WeighterPage implements OnInit {
 
   }
 
-  
-
-  cardType: any;
-  mergesdLocationList: any = []
   market(val) {
     this.type = val;
-    console.log(this.type);
     this.activeItem = "market"
     console.log(val);
     this.http.get('/list_market',).subscribe((response: any) => {
@@ -154,7 +119,6 @@ export class WeighterPage implements OnInit {
   merchant(val) {
     this.type = val;
     this.activeItem = "merchant"
-    console.log(this.type);
     console.log(val);
     this.http.get('/list_merchant',).subscribe((response: any) => {
       this.locationlist = response.records;
@@ -168,80 +132,7 @@ export class WeighterPage implements OnInit {
   }
 
 
-  offlineApiCall() {
-    if (this.checkonline = true) {
-
-      var Getdata = localStorage.getItem("added-items");
-      var Decodedata = (JSON.parse((Getdata)));
-      for (var i = 0; i < Decodedata.length; i++) {
-
-        var localtype = Decodedata[i].type;
-        var localcategory = Decodedata[i].category;
-        var localplace = Decodedata[i].place;
-        var localquantity = Decodedata[i].quantity;
-        var localisDeleted = "0";
-        var localboxname = "box"
-
-
-        const data = {
-          type: localtype,
-          category: localcategory,
-          place: localplace,
-          quantity: localquantity,
-          isDeleted: localisDeleted,
-          boxname: localboxname
-        }
-        this.http.post('/manual_weight', data).subscribe((response: any) => {
-          console.log(response);
-          if (response.success == "true") {
-
-          }
-        }, (error: any) => {
-          console.log(error);
-        }
-        );
-
-      }
-    }
-  }
-
-  tdyDate: any;
-
-  formattedDate;
-  today = new Date().toLocaleDateString()
-
-  hr;
-  updateTime;
-
   onlineApiCal() {
-    console.log(this.category, this.place, this.type);
-    var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
-    this.tdyDate = date;
-    console.log(this.tdyDate);
-
-
-    // Now we can access our time at date[1], and monthdayyear @ date[0]
-    var time = date[1];
-    var time_status = date[2];
-    console.log(time_status);
-
-
-
-    this.mdy = date[0];
-
-    // We then parse  the mdy into parts
-    this.mdy = this.mdy.split('/');
-    var month = parseInt(this.mdy[1]);
-    var day = parseInt(this.mdy[1]);
-    var year = parseInt(this.mdy[2]);
-    console.log(time_status);
-
-    // Putting it all together
-    var formattedDate = year + '-' + month + '-' + day + ' ';
-    console.log(formattedDate);
-
-    //console.log(formattedDate);
-
     let hours = new Date().getHours();
     let minutes = new Date().getMinutes();
     let seconds = new Date().getSeconds();
@@ -261,20 +152,7 @@ export class WeighterPage implements OnInit {
       updatedAt: this.updateTime
     }
 
-    console.log(data);
-
-
-    //----------If Offline----------//
-    if (this.checkoffline = true) {
-      this.setpushdata.push(data);
-      console.log(this.setpushdata);
-      var setdata = (JSON.stringify(this.setpushdata));
-      localStorage.setItem('added-items', setdata);
-    }
-
-
     this.http.post('/manual_weight', data).subscribe((response: any) => {
-      console.log(response);
       this.dateTime()
       if (response.success == "true") {
         const Toast = Swal.mixin({
@@ -357,16 +235,10 @@ export class WeighterPage implements OnInit {
         console.log(this.StoreTypeData);
 
       }
-
     }
-    console.log(this.StoreTypeData);
-
-
   }
 
   delete(id) {
-    console.log(id);
-
     const data = {
       boxid: id,
       isDeleted: "1"
@@ -436,7 +308,6 @@ export class WeighterPage implements OnInit {
   getCategoryList() {
     var GetCategory = localStorage.getItem('SetCategory');
     this.categorylist = (JSON.parse((GetCategory)));
-    //console.log(DisplayCategory);
   }
 
   getTypeList() {
@@ -473,12 +344,6 @@ export class WeighterPage implements OnInit {
     console.log(this.checkboxsts);
 
   }
-
-  setting() {
-    this.router.navigate(['/settings'])
-  }
-
-
 
   refresh() {
     //----------- Category Local Storage --------------//
@@ -528,7 +393,6 @@ export class WeighterPage implements OnInit {
     this.recivedWeightValue = Math.round(val  * 100) / 100;
 
     if(this.recivedWeightValue == this.recivedWeightValue){
-      alert(this.recivedWeightValue)
       setTimeout(() => {
         this.showWeight = this.recivedWeightValue
       }, 5000)

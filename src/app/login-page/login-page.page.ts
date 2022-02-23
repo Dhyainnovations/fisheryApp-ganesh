@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../shared/http.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
-import { MenuController, Platform, ToastController } from '@ionic/angular';
+import {  Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login-page',
@@ -24,7 +24,7 @@ export class LoginPagePage implements OnInit {
           this.router.navigate(['/loginpage'])
         }
 
-      }, 2500)
+      }, 2000)
 
     });
 
@@ -62,8 +62,6 @@ export class LoginPagePage implements OnInit {
       console.log(response);
 
       if (response.success == "true") {
-
-
 
         this.orgid = response.orgid,
           this.username = response.id,
@@ -136,16 +134,7 @@ export class LoginPagePage implements OnInit {
           });
 
 
-          //----------- Set Type Based On Category Local Storage --------------//
-
-          this.http.get('/list_type_manual').subscribe((response: any) => {
-            var SetTypeBasedOnCategory = (JSON.stringify(response.records));
-            localStorage.setItem('SetTypeBasedOnCategory', SetTypeBasedOnCategory);
-            console.log(response);
-          }, (error: any) => {
-            console.log(error);
-          }
-          );
+         
           this.checkToNavigate();
         }
 
@@ -176,12 +165,6 @@ export class LoginPagePage implements OnInit {
 
   }
 
-  ngAfterViewInit() {
-    this.backButtonSubscription = this.platform.backButton.subscribe(() => {
-      navigator['app'].exitApp();
-    });
-  }
-  ngOnDestroy() { };
 
 
   checkToNavigate() {

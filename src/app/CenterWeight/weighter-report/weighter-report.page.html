@@ -15,17 +15,6 @@
       <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()" name="arrow-back">
       </ion-icon>
     </div>
-    
-    <div *ngIf="onlineAlart" class="col-12 ion-text-right" style="margin-top: -50px;">
-      <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_dsp2yB.json" background="transparent"
-        speed="1.5" style="width:20%; margin-left: 80%;" loop autoplay></lottie-player>
-      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Online</p> -->
-    </div>
-
-    <div *ngIf="offlineAlart" class="col-12 ion-text-right " style="margin-top: -50px;">
-      <!-- <p style="background-color: #6863CC;border-radius:10px;color:#fff;width: 50px;  margin-left: 50%;">Offline</p> -->
-      <img style="width:20%; margin-left: 80%; border-radius: 55%;" src="assets/offline.gif" alt="">
-    </div>
   </div>
 
 
@@ -63,8 +52,6 @@
     <div class="row">
       <div *ngIf="isVisible" class=" col-12 ion-text-center mt-3 ">
         <h4 class="ion-text-center mx-3">No Records</h4>
-        <lottie-player src="https://assets8.lottiefiles.com/datafiles/vhvOcuUkH41HdrL/data.json"
-          background="transparent" speed="1.5" style="width:65%;margin:auto" loop autoplay></lottie-player>
       </div>
     </div>
 

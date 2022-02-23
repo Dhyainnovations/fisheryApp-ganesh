@@ -15,19 +15,8 @@ export class SettingsPage implements OnInit {
 
   constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef, route: ActivatedRoute,) {
     route.params.subscribe(val => {
-
       this.user = localStorage.getItem("Fishery-username",)
-      console.log(this.user);
-      window.addEventListener('offline', () => {
-        this.checkoffline = true;
-        this.offlineAlart = true
-        this.onlineAlart = false;
-      });
-      window.addEventListener('online', () => {
-        this.onlineAlart = true;
-        this.offlineAlart = false
-        this.checkonline = true;
-      });
+   
     });
     this.CheckBluetoothIsConnected();
     this.Locallogintype = localStorage.getItem("logintype",)
@@ -37,66 +26,18 @@ export class SettingsPage implements OnInit {
 
   ngOnInit() {
   }
-
-
-  onlineAlart: any = true;
-  checkonline: any;
-  offlineAlart: any = false;
-  checkoffline: any;
+  user: any;
   Locallogintype: any;
   Localpermission: any;
   printerBluetoothId: any;
-  backToPrivios() {
-    //-------center login check----------//
-
-    if (this.Locallogintype == "ROLE_WSHO") {
-
-      //---------- Auto or Manual Checking -----------//
-
-      if (this.Localpermission == "MANUAL") {
-        this.router.navigate(['/center-weight-manual-record'])
-      }
-
-      if (this.Localpermission == "AUTO") {
-        this.router.navigate(['/center-weight-auto-record'])
-      }
-
-    }
-
-
-
-    //-------biller login check----------//
-
-    if (this.Locallogintype == "ROLE_LOCALSALE") {
-
-      //---------- Auto or Manual Checking -----------//
-
-      if (this.Localpermission == "MANUAL") {
-        this.router.navigate(['/biller-weight-manual-record'])
-      }
-
-      if (this.Localpermission == "AUTO") {
-        this.router.navigate(['/biller-auto-record'])
-      }
-    }
-
-    //-------admin login check----------//
-
-    if (this.Locallogintype == "ROLE_ADMIN") {
-      this.router.navigate(['/admin-dashboard'])
-    }
-
-
-
-
-  }
-
-
-  //ScanBluetoothDevice
   unpairedDevices: any;
   pairedDevices: any;
   gettingDevices: boolean;
 
+  backToPrivios() {
+    this.router.navigate(['/centerweight-auto-weighter'])
+
+  }
 
   startScanning() {
     this.pairedDevices = null;
@@ -216,20 +157,12 @@ export class SettingsPage implements OnInit {
   }
 
 
-  user: any = "";
+  
 
   logout() {
-    localStorage.removeItem("orgid",)
-    localStorage.removeItem("Fishery-username",)
-    localStorage.removeItem("logintype",)
-    localStorage.removeItem("permission",)
+    localStorage.clear()
+    
     this.router.navigate(['/loginpage'])
   }
 
-
-  ToggleBluetooth() {
-    if (this.connectedId.length <= 0) {
-
-    }
-  }
 }

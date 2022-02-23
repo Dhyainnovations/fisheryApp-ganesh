@@ -5,7 +5,6 @@ import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { DatePipe } from '@angular/common';
-import { DatePicker } from '@ionic-native/date-picker';
 
 @Component({
   selector: 'app-center-manual-weighter',
@@ -15,27 +14,12 @@ import { DatePicker } from '@ionic-native/date-picker';
 export class CenterManualWeighterPage implements OnInit {
   constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
     route.params.subscribe(val => {
-      this.dropdownVisible = false
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
       this.records();
-      window.addEventListener('offline', () => {
-        this.checkoffline = true;
-        this.offlineAlart = true
-        this.onlineAlart = false;
-      });
-      window.addEventListener('online', () => {
-        this.refresh()
-        this.onlineAlart = true;
-        this.offlineAlart = false
-        this.checkonline = true;
-        this.offlineApiCall();
-
-      });
-
+     
       this.activeItem = ""
-      this.type = "center";
   
       this.myDate = new Date();
       this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -46,35 +30,12 @@ export class CenterManualWeighterPage implements OnInit {
   }
 
   activeItem: any;
-
-
-  myDate;
-  dateTime() {
-    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
-  }
-
-  ngOnInit() {
-
-    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
-    const start = Date.now();
-    console.log(start);
-
-    this.user = localStorage.getItem("Fishery-username",)
-    console.log(this.user);
-
-
-  }
-
+  myDate:any;
   user: any;
-  dropdownVisible: any = false;
-
-  // currentDate = new Date();
   tdyDate: any;
-  formattedDate;
   today = new Date().toLocaleDateString()
-  hr: any;
+  hr:any;
   updateTime: any;
-
   currentDateTime: any;
   checkoffline: any;
   checkonline: any;
@@ -85,18 +46,23 @@ export class CenterManualWeighterPage implements OnInit {
   location: any;
   weight: any;
   fishQuality: any;
-  mdy: any;
   categorylist: any = []
   locationlist: any = []
   typelist: any = []
-
   tableRecodrs: any = []
   buttonDisabled: boolean;
-  onlineAlart: any = true;
-  offlineAlart: any = false
 
 
+  dateTime() {
+    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
+  }
 
+  ngOnInit() {
+
+    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
+    this.user = localStorage.getItem("Fishery-username",)
+
+  }
 
   backToPrivios() {
     this.router.navigate(['/center-weight-record'])
@@ -212,41 +178,12 @@ export class CenterManualWeighterPage implements OnInit {
 
 
   onlineApiCal() {
-    console.log(this.category, this.place, this.type);
-    var date = new Date().toLocaleString('en-US', { hour12: true }).split(" ");
-    this.tdyDate = date;
-    console.log(this.tdyDate);
-
-
-    // Now we can access our time at date[1], and monthdayyear @ date[0]
-    var time = date[1];
-    var time_status = date[2];
-    console.log(time_status);
-
-
-
-    this.mdy = date[0];
-
-    // We then parse  the mdy into parts
-    this.mdy = this.mdy.split('/');
-    var month = parseInt(this.mdy[1]);
-    var day = parseInt(this.mdy[1]);
-    var year = parseInt(this.mdy[2]);
-    console.log(time_status);
-
-    // Putting it all together
-    var formattedDate = year + '-' + month + '-' + day + ' ';
-    console.log(formattedDate);
-
-    //console.log(formattedDate);
-
+   
     let hours = new Date().getHours();
     let minutes = new Date().getMinutes();
     let seconds = new Date().getSeconds();
     this.hr = hours + 12;
-
     this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
-    console.log(this.updateTime);
 
     const data = {
       quality: this.fishQuality,
@@ -260,9 +197,6 @@ export class CenterManualWeighterPage implements OnInit {
       updatedAt: this.updateTime
     }
 
-    console.log(data);
-
-
     //----------If Offline----------//
     if (this.checkoffline = true) {
       this.setpushdata.push(data);
@@ -273,7 +207,7 @@ export class CenterManualWeighterPage implements OnInit {
 
 
     this.http.post('/manual_weight', data).subscribe((response: any) => {
-      console.log(response);
+
       this.dateTime()
       if (response.success == "true") {
         const Toast = Swal.mixin({
@@ -456,20 +390,6 @@ export class CenterManualWeighterPage implements OnInit {
 
     }, 1500);
   }
-
-
-
-  checkboxsts: any = false
-
-  dropdownOpen() {
-    this.checkboxsts = true
-    console.log(this.checkboxsts);
-
-  }
-
-
-
-
 
   refresh() {
     //----------- Category Local Storage --------------//
