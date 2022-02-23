@@ -57,7 +57,7 @@
       <div class="col-12 ion-text-center mt-1">
         <h1
           style="border: 0.5px solid rgba(0, 0, 0, 0.164);  box-shadow: 1px 1px 8px 1px #6863CC;width: 85%;margin: auto;">
-          {{recivedWeightValue}} <span style="font-size: 17px;">Kg</span></h1>
+          {{showWeight}} <span style="font-size: 17px;">Kg</span></h1>
 
       </div>
     </div>
@@ -131,7 +131,7 @@
       <div class="button-wrapper mt-2 mx-2 ">
         <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent"
           style="background-color: #6863CC;width: 100% !important;"
-          [disabled]="!place || !type || !category ||  !onlineAlart  || recivedWeightValue <='0' ">
+          [disabled]="!place || !type || !category ||  !onlineAlart  || showWeight <='0' ">
           <b>SUBMIT</b>
         </ion-button>
       </div>

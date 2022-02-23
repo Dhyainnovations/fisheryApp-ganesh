@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpService } from '../shared/http.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
-import {  Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-login-page',
@@ -37,17 +37,14 @@ export class LoginPagePage implements OnInit {
 
   username: any;
   password: any;
-
   orgid: any;
   userName: any;
   logintype: any;
   permission: any;
-
   LocalOrgid: any;
   LocaluserName: any;
   Locallogintype: any;
   Localpermission: any;
-
   backButtonSubscription: any;
 
   login() {
@@ -125,16 +122,18 @@ export class LoginPagePage implements OnInit {
           }
           );
 
-          //----------- Location Local Storage --------------//
-          this.http.get('/list_location',).subscribe((response: any) => {
-            var SetLocation = (JSON.stringify(response.records));
-            localStorage.setItem('SetLocation', SetLocation);
+         
+          //----------- Set Category Based On Type Local Storage --------------//
+
+          this.http.get('/list_type_manual').subscribe((response: any) => {
+            var SetTypeBasedOnCategory = (JSON.stringify(response.records));
+            localStorage.setItem('SetTypeBasedOnCategory', SetTypeBasedOnCategory);
+            console.log(response);
           }, (error: any) => {
             console.log(error);
-          });
+          }
+          );
 
-
-         
           this.checkToNavigate();
         }
 
@@ -171,7 +170,7 @@ export class LoginPagePage implements OnInit {
     //-------center login check----------//
 
     if (this.Locallogintype == "ROLE_WSHO") {
-        this.router.navigate(['/center-weight-record'])
+      this.router.navigate(['/center-weight-record'])
     }
 
     //-------admin login check----------//

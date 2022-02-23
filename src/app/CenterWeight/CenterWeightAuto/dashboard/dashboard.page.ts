@@ -5,10 +5,8 @@ import { AlertController } from '@ionic/angular';
 import { ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
-import Swal from 'sweetalert2';
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,25 +15,11 @@ import { Network } from '@awesome-cordova-plugins/network/ngx';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef, private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private route: ActivatedRoute, private http: HttpService,) {
+  constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef, public datepipe: DatePipe, public navCtrl: NavController, private route: ActivatedRoute, private http: HttpService,) {
     route.params.subscribe(val => {
-
-      window.addEventListener('offline', () => {
-        this.checkoffline = true;
-        this.offlineAlart = true
-        this.onlineAlart = false;
-
-      });
-      window.addEventListener('online', () => {
-
-        this.onlineAlart = true;
-        this.offlineAlart = false
-        this.checkonline = true;
-
-      });
-      
+      this.user = localStorage.getItem("Fishery-username",)
     });
-    this.user = localStorage.getItem("Fishery-username",)
+    
   }
 
   ngOnInit() {
@@ -43,14 +27,10 @@ export class DashboardPage implements OnInit {
   }
 
   user: any;
-  checkoffline: any;
-  checkonline: any;
   buttonDisabled: boolean;
   unpairedDevices: any;
   pairedDevices: any;
   gettingDevices: boolean;
-  onlineAlart: any = true;
-  offlineAlart: any = false
   disableSts: any = false;
   
 
@@ -167,6 +147,11 @@ export class DashboardPage implements OnInit {
         alert("The user did not enable Bluetooth");
       }
     );
+  }
+
+
+  next(){
+    this.router.navigate(['/centerweight-auto-weighter'])
   }
 
   //--------------- logout ----------//
