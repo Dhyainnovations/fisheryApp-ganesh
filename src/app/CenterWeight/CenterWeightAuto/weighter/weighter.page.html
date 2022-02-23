@@ -33,23 +33,23 @@
       <b style="font-size: 20px;">AUTO-WEIGHTER</b>
     </div>
 
-    <div class="row">
+    <div class="row ">
       <!-----Display Date----->
-      <div class="col-6 display-date mx-4 mt-3">
-        <p> <b>{{currentDateTime | date:'dd-MM-yyyy'}}</b> </p>
+  
+      <div class="date-card col-6 display-date mx-5 ">
+        <p style="margin: 7px;" > <b>{{currentDateTime | date:'dd-MM-yyyy'}}</b> </p>
       </div>
-
-      <div style="margin-top:-45px" class=" col-6 dropdown toggle">
-        <input id="t1" type="checkbox">
-        <label for="t1">{{user}}</label>
+  
+      <div style="margin-top: -12%;"  class=" col-6 dropdown toggle ">
+        <input id="t10" type="checkbox">
+        <label for="t10">{{user}}</label>
         <ul>
           <li><a (click)="navigateToSettings()">Settings</a></li>
           <li><a (click)="logout()">Logout</a></li>
         </ul>
       </div>
-
+  
     </div>
-
 
     <!-----Display Weight----->
     <div class="row">
@@ -131,7 +131,7 @@
       <div class="button-wrapper mt-2 mx-2 ">
         <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent"
           style="background-color: #6863CC;width: 100% !important;"
-          [disabled]="!place || !type || !category ||  !onlineAlart  || showWeight <='0' ">
+          [disabled]="!place || !type || !category   || showWeight <='0' ">
           <b>SUBMIT</b>
         </ion-button>
       </div>

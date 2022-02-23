@@ -122,12 +122,53 @@ export class LoginPagePage implements OnInit {
           }
           );
 
-         
+
           //----------- Set Category Based On Type Local Storage --------------//
 
           this.http.get('/list_type_manual').subscribe((response: any) => {
             var SetTypeBasedOnCategory = (JSON.stringify(response.records));
             localStorage.setItem('SetTypeBasedOnCategory', SetTypeBasedOnCategory);
+            console.log(response);
+          }, (error: any) => {
+            console.log(error);
+          }
+          );
+
+
+          //----------- Set Location To Local Storage --------------//
+
+          //----------- centerLocation Local Storage --------------//
+          this.http.get('/list_location',).subscribe((response: any) => {
+            var SetLocation = (JSON.stringify(response.records));
+            localStorage.setItem('SetLocation', SetLocation);
+          }, (error: any) => {
+            console.log(error);
+          });
+
+          //------localsale location ----//
+          this.http.get('/list_localsale_place').subscribe((response: any) => {
+            var SetLocalSaleLocations = (JSON.stringify(response.records));
+            localStorage.setItem('localSaleLocation', SetLocalSaleLocations);
+            console.log(response);
+          }, (error: any) => {
+            console.log(error);
+          }
+          );
+
+          //------ market  location ----//
+          this.http.get('/list_market').subscribe((response: any) => {
+            var SetMarketLocations = (JSON.stringify(response.records));
+            localStorage.setItem('marketLocation', SetMarketLocations);
+            console.log(response);
+          }, (error: any) => {
+            console.log(error);
+          }
+          );
+
+          //------ merchant location ----//
+          this.http.get('/list_merchant').subscribe((response: any) => {
+            var SetMerchantLocations = (JSON.stringify(response.records));
+            localStorage.setItem('merchantLocation', SetMerchantLocations);
             console.log(response);
           }, (error: any) => {
             console.log(error);
