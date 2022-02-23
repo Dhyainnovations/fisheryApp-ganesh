@@ -39,12 +39,13 @@ export class WeighterPage implements OnInit {
     this.user = localStorage.getItem("Fishery-username",)
   }
 
-  myDate:any;
+  myDate: any;
   user: any;
   dropdownVisible: any = false;
   currentDateTime: any;
   setpushdata: any = [];
   category: any;
+  quality: any
   type: any;
   place: any;
   weight: any;
@@ -56,114 +57,56 @@ export class WeighterPage implements OnInit {
   buttonDisabled: boolean;
   recivedWeightValue: any;
   activeItem: any;
-  hr:any;
-  updateTime:any;
+  hr: any;
+  updateTime: any;
   cardType: any;
   mergesdLocationList: any = []
-
+  location: any;
+  StoreTypeBasedOnCategory = [];
+  StoreTypeData = [];
 
   backToPrivios() {
     this.router.navigate(['/center-weight-record'])
   }
 
 
+  //-------------------- center button click func ----------//
   center(val) {
     this.activeItem = "center"
     this.type = val;
-    console.log(this.type);
-
-    if(this.type == "center"){
-      this.locationlist = []
-      var GetLocation = localStorage.getItem('SetLocation');
-      this.locationlist = (JSON.parse((GetLocation)));
-      console.log(this.locationlist);
-    }
-
-    // this.http.get('/list_center_place',).subscribe((response: any) => {
-    //   this.locationlist = response.records;
-    //   console.log(response);
-
-    // }, (error: any) => {
-    //   console.log(error);
-    // }
-    // );
-
-
-
+    this.locationlist = []
+    var GetLocation = localStorage.getItem('SetLocation');
+    this.locationlist = (JSON.parse((GetLocation)));
   }
 
+  //-------------------- localsale button click func ----------//
   localsale(val) {
-
     this.type = val;
     this.activeItem = "localsale"
-    console.log(val);
-    // this.http.get('/list_localsale_place',).subscribe((response: any) => {
-    //   this.locationlist = response.records;
-    //   console.log(response);
-
-    // }, (error: any) => {
-    //   console.log(error);
-    // }
-    // );
-    if(this.type == "localsale"){
-      this.locationlist = []
-      var GetLocalSaleLocation = localStorage.getItem('localSaleLocation');
-      console.log(GetLocalSaleLocation);
-      this.locationlist = (JSON.parse((GetLocalSaleLocation)));
-      console.log(this.locationlist);
-    }
-
+    this.locationlist = []
+    var GetLocalSaleLocation = localStorage.getItem('localSaleLocation');
+    this.locationlist = (JSON.parse((GetLocalSaleLocation)));
   }
 
+  //-------------------- market button click func ----------//
   market(val) {
     this.type = val;
     this.activeItem = "market"
-    console.log(val);
-    // this.http.get('/list_market',).subscribe((response: any) => {
-    //   this.locationlist = response.records;
-    //   console.log(response);
-
-    // }, (error: any) => {
-    //   console.log(error);
-    // }
-    // );
-
-    if(this.type == "market"){
-      this.locationlist = []
-      var GetMarketLocation = localStorage.getItem('marketLocation');
-      console.log(GetMarketLocation);
-      this.locationlist = (JSON.parse((GetMarketLocation)));
-      console.log(this.locationlist);
-    }
-
+    this.locationlist = []
+    var GetMarketLocation = localStorage.getItem('marketLocation');
+    this.locationlist = (JSON.parse((GetMarketLocation)));
   }
+
+  //-------------------- merchant button click func ----------//
   merchant(val) {
     this.type = val;
     this.activeItem = "merchant"
-    console.log(val);
-    // this.http.get('/list_merchant',).subscribe((response: any) => {
-    //   this.locationlist = response.records;
-    //   console.log(response);
-
-    // }, (error: any) => {
-    //   console.log(error);
-    // }
-    // );
-
-    if(this.type == "merchant"){
-      this.locationlist = []
-      var GetMerchantLocation = localStorage.getItem('merchantLocation');
-      console.log(GetMerchantLocation);
-      this.locationlist = (JSON.parse((GetMerchantLocation)));
-      console.log(this.locationlist);
-      
-    }
-
+    this.locationlist = []
+    var GetMerchantLocation = localStorage.getItem('merchantLocation');
+    this.locationlist = (JSON.parse((GetMerchantLocation)));
   }
 
-
-  
-
+  //---------------------- Api Call func -------------//
   onlineApiCal() {
     let hours = new Date().getHours();
     let minutes = new Date().getMinutes();
@@ -174,11 +117,11 @@ export class WeighterPage implements OnInit {
     console.log(this.updateTime);
 
     const data = {
-      quality: this.type,
-      type: "center",
+      quality: this.quality,
+      type: this.type,
       category: this.category,
       place: this.place,
-      quantity: this.recivedWeightValue,
+      quantity: this.showWeight,
       isDeleted: "0",
       boxname: "box",
       updatedAt: this.updateTime
@@ -218,34 +161,7 @@ export class WeighterPage implements OnInit {
   }
 
 
-  SelectType(data) {
-    const formdata = new FormData();
-    formdata.append("type", data.type);
-    this.type = data.type;
-  }
-
-  SelectLocation(data) {
-
-    const formdata = new FormData();
-    formdata.append("place", data.place);
-    let recivedVal = data.place;
-    var splitted = recivedVal.split(" - ", 2);
-    this.place = splitted[0];
-
-    if (splitted[1] == undefined) {
-      this.location = '';
-    } else {
-      this.location = splitted[1];
-    }
-    console.log(this.place);
-    console.log(this.location);
-
-  }
-
-  location: any;
-  StoreTypeBasedOnCategory = [];
-  StoreTypeData = [];
-
+  //------------------ select category ------------------//
   SelectCategory(data) {
     this.StoreTypeData = [];
     const formdata = new FormData();
@@ -270,6 +186,35 @@ export class WeighterPage implements OnInit {
     }
   }
 
+
+  //------------------ select quality ------------------//
+  SelectType(data) {
+    const formdata = new FormData();
+    formdata.append("type", data.type);
+    this.quality = data.type;
+  }
+
+  //------------------ select location filteration ------------------//
+  SelectLocation(data) {
+    const formdata = new FormData();
+    formdata.append("place", data.place);
+    let recivedVal = data.place;
+    var splitted = recivedVal.split(" - ", 2);
+    this.place = splitted[0];
+
+    if (splitted[1] == undefined) {
+      this.location = '';
+    } else {
+      this.location = splitted[1];
+    }
+    console.log(this.place);
+    console.log(this.location);
+
+  }
+
+
+
+  //--------------------- delete Api -----------------//
   delete(id) {
     const data = {
       boxid: id,
@@ -324,6 +269,8 @@ export class WeighterPage implements OnInit {
     );
   }
 
+
+  //----------------- display card records ---------------//
   records() {
     this.http.get('/list_manual_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
@@ -336,12 +283,13 @@ export class WeighterPage implements OnInit {
   }
 
 
-
+  //-------------- get category list from localstorage ------------//
   getCategoryList() {
     var GetCategory = localStorage.getItem('SetCategory');
     this.categorylist = (JSON.parse((GetCategory)));
   }
 
+  //-------------- get quality list from localstorage ------------//
   getTypeList() {
     var GetType = localStorage.getItem('SetType');
     this.typelist = (JSON.parse((GetType)));
@@ -358,20 +306,8 @@ export class WeighterPage implements OnInit {
   dosomething(event) {
     setTimeout(() => {
       event.target.complete();
-
       this.refresh()
-
     }, 1500);
-  }
-
-
-
-  checkboxsts: any = false
-
-  dropdownOpen() {
-    this.checkboxsts = true
-    console.log(this.checkboxsts);
-
   }
 
   refresh() {
@@ -402,7 +338,7 @@ export class WeighterPage implements OnInit {
     });
 
 
-  
+
   }
 
 
@@ -410,29 +346,29 @@ export class WeighterPage implements OnInit {
     this.bluetoothSerial.subscribeRawData().subscribe((dt) => {
       this.bluetoothSerial.read().then((dd) => {
         this.onDataReceive(dd);
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
       });
     });
   }
 
-  showWeight:any;
+  showWeight: any;
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
     var data = JSON.stringify(val)
-    this.recivedWeightValue = Math.round(val  * 100) / 100;
+    this.recivedWeightValue = Math.round(val * 100) / 100;
 
-    if(this.recivedWeightValue == this.recivedWeightValue){
+    if (this.recivedWeightValue == this.recivedWeightValue) {
       setTimeout(() => {
         this.showWeight = this.recivedWeightValue
-      }, 5000)
-      
+      }, 9000)
+
     }
 
     this.cdr.detectChanges(); // or here
   }
 
   logout() {
-    localStorage.clear()    
+    localStorage.clear()
     this.router.navigate(['/loginpage'])
   }
 

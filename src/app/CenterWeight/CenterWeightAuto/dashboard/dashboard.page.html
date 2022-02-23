@@ -16,22 +16,22 @@
   </div>
 
   <!-----Title----->
-    <div class="row">
+  <div class="row">
 
-      <div style="margin-top:-50px" class="col-12 ion-text-center">
-        <b style="font-size: 25px;">DASHBOARD</b>
-      </div>
-
-      <div class=" col-6 dropdown toggle mt-3">
-        <input id="t4" type="checkbox">
-        <label for="t4">{{user}}</label>
-        <ul>
-        
-          <li><a (click)="logout()">Logout</a></li>
-        </ul>
-      </div>
-
+    <div style="margin-top:-50px" class="col-12 ion-text-center">
+      <b style="font-size: 25px;">DASHBOARD</b>
     </div>
+
+    <div class=" col-6 dropdown toggle mt-3">
+      <input id="t4" type="checkbox">
+      <label for="t4">{{user}}</label>
+      <ul>
+
+        <li><a (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+
+  </div>
 
   <!-----Sub-Title----->
   <h4 class="text-center connectivity mt-4"><b> BLUETOOTH CONNECTIVITY</b></h4>
@@ -41,13 +41,13 @@
         <div class="container">
           <div class="row">
             <button (click)="enablebluetooth()" class="submit-button px-2 py-2" color="transparent"
-              style="font-size: 13px;background-color: #655fcb;" >
+              style="font-size: 13px;background-color: #655fcb;">
               CONNECT
             </button>
           </div>
         </div>
       </div>
-  
+
     </div>
   </div>
 
@@ -74,6 +74,6 @@
   </div>
 
 
-  <button class="btn btn-primary" (click)="next()">next</button>
+  <!-- <button class="btn btn-primary" (click)="next()">next</button> -->
 
 </ion-content>

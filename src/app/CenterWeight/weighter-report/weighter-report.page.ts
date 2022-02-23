@@ -31,8 +31,6 @@ export class WeighterReportPage implements OnInit {
   fromdate: any;
   todate: any;
   disableSts: any = false;
-  checkoffline: any;
-  checkonline: any;
   
   tableRecodrs: any = []
   totalQuantity: any;

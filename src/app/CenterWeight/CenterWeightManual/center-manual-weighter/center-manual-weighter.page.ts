@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
 import Swal from 'sweetalert2';
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -12,33 +11,30 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./center-manual-weighter.page.scss'],
 })
 export class CenterManualWeighterPage implements OnInit {
-  constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network,) {
+  constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.getCategoryList()
       this.getTypeList()
       this.getLocationList()
       this.records();
-     
+
       this.activeItem = ""
-  
       this.myDate = new Date();
       this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
     });
 
-    
+
 
   }
 
   activeItem: any;
-  myDate:any;
+  myDate: any;
   user: any;
   tdyDate: any;
   today = new Date().toLocaleDateString()
-  hr:any;
+  hr: any;
   updateTime: any;
   currentDateTime: any;
-  checkoffline: any;
-  checkonline: any;
   setpushdata: any = [];
   category: any;
   type: any;
@@ -68,68 +64,51 @@ export class CenterManualWeighterPage implements OnInit {
     this.router.navigate(['/center-weight-record'])
   }
 
+  //------------- center button click func ------------//
   center(val) {
     this.activeItem = "center"
     this.type = val;
-    console.log(this.type);
-
     this.http.get('/list_center_place',).subscribe((response: any) => {
       this.locationlist = response.records;
-      console.log(response);
 
     }, (error: any) => {
       console.log(error);
     }
     );
-
-
-
   }
 
+  //------------- localsale button click func ------------//
   localsale(val) {
-
     this.type = val;
-    console.log(this.type);
     this.activeItem = "localsale"
-    console.log(val);
     this.http.get('/list_localsale_place',).subscribe((response: any) => {
       this.locationlist = response.records;
-      console.log(response);
 
     }, (error: any) => {
       console.log(error);
     }
     );
-
   }
 
-  
-
-  cardType: any;
-  mergesdLocationList: any = []
+  //------------- merchant button click func ------------//
   market(val) {
     this.type = val;
-    console.log(this.type);
     this.activeItem = "market"
-    console.log(val);
     this.http.get('/list_market',).subscribe((response: any) => {
       this.locationlist = response.records;
-      console.log(response);
-
     }, (error: any) => {
       console.log(error);
     }
     );
 
   }
+
+  //------------- merchant button click func ------------//
   merchant(val) {
     this.type = val;
     this.activeItem = "merchant"
-    console.log(this.type);
-    console.log(val);
     this.http.get('/list_merchant',).subscribe((response: any) => {
       this.locationlist = response.records;
-      console.log(response);
 
     }, (error: any) => {
       console.log(error);
@@ -138,47 +117,8 @@ export class CenterManualWeighterPage implements OnInit {
 
   }
 
-  offlineApiCall() {
-    if (this.checkonline = true) {
-
-      var Getdata = localStorage.getItem("added-items");
-      var Decodedata = (JSON.parse((Getdata)));
-      for (var i = 0; i < Decodedata.length; i++) {
-
-        var localtype = Decodedata[i].type;
-        var localcategory = Decodedata[i].category;
-        var localplace = Decodedata[i].place;
-        var localquantity = Decodedata[i].quantity;
-        var localisDeleted = "0";
-        var localboxname = "box"
-
-
-        const data = {
-          type: localtype,
-          category: localcategory,
-          place: localplace,
-          quantity: localquantity,
-          isDeleted: localisDeleted,
-          boxname: localboxname
-        }
-        this.http.post('/manual_weight', data).subscribe((response: any) => {
-          console.log(response);
-          if (response.success == "true") {
-
-          }
-        }, (error: any) => {
-          console.log(error);
-        }
-        );
-
-      }
-    }
-  }
-
-
-
+  //----------------- Api call ------------//
   onlineApiCal() {
-   
     let hours = new Date().getHours();
     let minutes = new Date().getMinutes();
     let seconds = new Date().getSeconds();
@@ -197,14 +137,11 @@ export class CenterManualWeighterPage implements OnInit {
       updatedAt: this.updateTime
     }
 
-    //----------If Offline----------//
-    if (this.checkoffline = true) {
-      this.setpushdata.push(data);
-      console.log(this.setpushdata);
-      var setdata = (JSON.stringify(this.setpushdata));
-      localStorage.setItem('added-items', setdata);
-    }
 
+    this.setpushdata.push(data);
+    console.log(this.setpushdata);
+    var setdata = (JSON.stringify(this.setpushdata));
+    localStorage.setItem('added-items', setdata);
 
     this.http.post('/manual_weight', data).subscribe((response: any) => {
 

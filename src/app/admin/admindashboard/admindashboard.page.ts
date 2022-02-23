@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../shared/http.service';
 import { Router } from '@angular/router'
-import Swal from 'sweetalert2';
 import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { DatePipe } from '@angular/common';
-import { DatePicker } from '@ionic-native/date-picker';
 
 @Component({
   selector: 'app-admindashboard',
@@ -18,32 +16,13 @@ export class AdmindashboardPage implements OnInit {
     route.params.subscribe(val => {
 
       this.myDate = new Date();
-
       this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
       this.fromdate = this.myDate;
       this.todate = this.myDate
-
-      
-      window.addEventListener('offline', () => {
-        this.checkoffline = true;
-        this.offlineAlart = true
-        this.onlineAlart = false;
-      });
-      window.addEventListener('online', () => {
-        this.onlineAlart = true;
-        this.offlineAlart = false
-        this.checkonline = true;
-
-      });
-
-
+      this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
       this.user = localStorage.getItem("Fishery-username",)
       this.locLoginType = localStorage.getItem("logintype",)
       this.user = localStorage.getItem("permission",)
-
-    
-
-
       this.records()
       this.totalAmount()
       this.totalWeight()
@@ -53,39 +32,24 @@ export class AdmindashboardPage implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.myDate = new Date();
-
-    this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
-    this.fromdate = this.myDate;
-    this.todate = this.myDate
-    this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
+  ngOnInit() { 
   }
 
   myDate: any
-
   fromdate: any;
   todate: any;
-
   currentDateTime: any;
-
-
   user: any;
-
   currentDate = new Date();
-
-  onlineAlart: any = true;
-  offlineAlart: any = false;
-  checkoffline: any;
-  checkonline: any;
-
   locLoginType: any;
   locPermission: any;
+  totalweight: any
+  totalCost: any;
+
 
   dosomething(event) {
     setTimeout(() => {
       event.target.complete();
-
 
     }, 1500);
   }
@@ -94,9 +58,7 @@ export class AdmindashboardPage implements OnInit {
     this.router.navigate(['/admin-usercreation'])
   }
 
-
   weighterReportPage() {
-
     this.router.navigate(['/weighter-report'],{ queryParams: { fromdate: this.fromdate, todate: this.todate } })
     localStorage.setItem("fromDate", this.fromdate)
     localStorage.setItem("toDate", this.todate)
@@ -105,12 +67,7 @@ export class AdmindashboardPage implements OnInit {
 
   billerReportPage() {
     this.router.navigate(['/biller-report'])
-
   }
-
-
-  totalweight: any
-  totalCost: any;
 
   totalWeight() {
     this.http.get('/list_total_manual_weight',).subscribe((response: any) => {
@@ -125,8 +82,6 @@ export class AdmindashboardPage implements OnInit {
     }
     );
   }
-
-
 
   totalAmount() {
     this.http.get('/bill_total_amount',).subscribe((response: any) => {
@@ -190,10 +145,7 @@ export class AdmindashboardPage implements OnInit {
 
 
   logout() {
-    localStorage.removeItem("orgid",)
-    localStorage.removeItem("Fishery-username",)
-    localStorage.removeItem("logintype",)
-    localStorage.removeItem("permission",)
+    localStorage.clear()
     this.router.navigate(['/loginpage'])
   }
 

@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CenterWeightRecordPage implements OnInit {
 
-  constructor( public datepipe: DatePipe, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
+  constructor(public datepipe: DatePipe, public navCtrl: NavController, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.Localpermission = localStorage.getItem("permission",)
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
@@ -22,7 +22,7 @@ export class CenterWeightRecordPage implements OnInit {
       this.marketTableRecords()
       this.merchantTableRecords()
       this.stockTableRecords()
-      
+
     });
 
     this.myDate = new Date();
@@ -53,6 +53,15 @@ export class CenterWeightRecordPage implements OnInit {
   buttonDisabled: boolean;
   fromdate: any;
   todate: any;
+  stockTableEmpty: any = true;
+  marketTableEmpty: any = true;
+  merchantTableEmpty: any = true;
+  stockTableRec: any = []
+  stockType: any = '';
+  stockLocation: any = '';
+  stockCategory: any = '';
+  stockQuality: any = '';
+  stockQuantity: any = '';
 
   fromDate(val) {
     this.fromdate = val
@@ -78,7 +87,7 @@ export class CenterWeightRecordPage implements OnInit {
   }
 
 
-
+  //-------------------- totalWeight Api ------------------//
   totalWeight() {
     this.http.get('/list_total_manual_weight',).subscribe((response: any) => {
       this.totalweight = response.records.total_weight;
@@ -93,7 +102,7 @@ export class CenterWeightRecordPage implements OnInit {
     );
   }
 
-
+  //------------- location based table record ------------//
   locationBasedWeightRecords() {
     this.http.get('/location_manual_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
@@ -104,7 +113,7 @@ export class CenterWeightRecordPage implements OnInit {
     );
   }
 
-
+  //-------------- card records (last 2 entry) ------------//
   records() {
     this.http.get('/list_manual_weight',).subscribe((response: any) => {
       this.cardRecords = response.records;
@@ -148,10 +157,8 @@ export class CenterWeightRecordPage implements OnInit {
 
   }
 
-
+  //-------------------Delete Api -------------//
   delete(id) {
-    console.log(id);
-
     const data = {
       boxid: id,
       isDeleted: "1"
@@ -211,32 +218,21 @@ export class CenterWeightRecordPage implements OnInit {
     );
   }
 
-
-  stockTableRec: any = []
-  stockType: any = '';
-  stockLocation: any = '';
-  stockCategory: any = '';
-  stockQuality: any = '';
-  stockQuantity: any = '';
+  //------------ stock table records --------------//
   stockTableRecords() {
     this.http.get('/list_table_stock',).subscribe((response: any) => {
       this.stockTableRec = response;
       if (this.stockTableRec == "No manual weight found.") {
         this.stockTableRec = [];
-
+        this.stockTableEmpty = true
       } else {
         for (var i = 0; i < response.length; i++) {
-
+          this.stockTableEmpty = false
           this.stockType = response[i].records[i].type;
           this.stockLocation = response[i].records[i].location;
           this.stockCategory = response[i].records[i].category;
           this.stockQuality = response[i].records[i].quality;
           this.stockQuantity = response[i].records[i].quantity;
-
-          console.log(response[i].records[i].type);
-          console.log(this.stockLocation);
-
-
         }
 
       }
@@ -249,42 +245,38 @@ export class CenterWeightRecordPage implements OnInit {
     );
   }
 
+  //------------ market table records --------------//
   marketTableRec: any = []
   marketTableRecords() {
     this.http.get('/list_table_market',).subscribe((response: any) => {
       this.marketTableRec = response.records;
       if (this.marketTableRec == "No manual weight found.") {
         this.marketTableRec = [];
-
+        this.marketTableEmpty = true
       } else {
-
-
+        this.marketTableEmpty = false
       }
     }, (error: any) => {
       console.log(error);
       this.marketTableRec = [];
-
-
     }
     );
   }
 
+  //------------ merchant table records --------------//
   merchantTableRec: any = []
   merchantTableRecords() {
     this.http.get('/list_table_merchant',).subscribe((response: any) => {
       this.merchantTableRec = response.records;
       if (this.merchantTableRec == "No manual weight found.") {
         this.merchantTableRec = [];
-
+        this.merchantTableEmpty = true
       } else {
-
-
+        this.merchantTableEmpty = false
       }
     }, (error: any) => {
       console.log(error);
       this.merchantTableRec = [];
-
-
     }
     );
   }
