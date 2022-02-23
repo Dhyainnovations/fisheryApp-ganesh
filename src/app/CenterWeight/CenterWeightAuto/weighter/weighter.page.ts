@@ -529,6 +529,7 @@ export class WeighterPage implements OnInit {
     if(this.recivedWeightValue == this.recivedWeightValue){
       setTimeout(() => {
         this.recivedWeightValue = this.recivedWeightValue
+        console.log(this.recivedWeightValue)
       }, 5000)
       
     }
