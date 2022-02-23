@@ -20,7 +20,6 @@ export class DashboardPage implements OnInit {
   constructor(private router: Router, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef, private network: Network, public datepipe: DatePipe, public navCtrl: NavController, private route: ActivatedRoute, private http: HttpService,) {
     route.params.subscribe(val => {
 
-
       window.addEventListener('offline', () => {
         this.checkoffline = true;
         this.offlineAlart = true
@@ -34,32 +33,34 @@ export class DashboardPage implements OnInit {
         this.checkonline = true;
 
       });
+      
     });
-       this.user = localStorage.getItem("Fishery-username",)
+    this.user = localStorage.getItem("Fishery-username",)
   }
 
   ngOnInit() {
-    
+
   }
-  
-  user:any;
-  disableSts: any = false;
+
+  user: any;
   checkoffline: any;
   checkonline: any;
   buttonDisabled: boolean;
-  onlineAlart: any = true;
-  offlineAlart: any = false
-
- 
-  bluetoothconnected: any = false;
-  bluetoothnotconnected: any = true;
-
-  
   unpairedDevices: any;
   pairedDevices: any;
   gettingDevices: boolean;
+  onlineAlart: any = true;
+  offlineAlart: any = false
+  disableSts: any = false;
+  
 
+  //------------- navigate to privios page -------------//
+  backToPrivios() {
+    this.router.navigate(['/center-weight-record']);
 
+  }
+
+  //------------- bluetooth scan func ----------------//
   startScanning() {
     this.pairedDevices = null;
     this.unpairedDevices = null;
@@ -93,7 +94,7 @@ export class DashboardPage implements OnInit {
   }
 
 
-
+  //----------------- bluetooth disconnect --------------//
   async disconnect() {
     const alert = await this.alertController.create({
       header: 'Disconnect?',
@@ -118,8 +119,8 @@ export class DashboardPage implements OnInit {
   }
 
 
+  //--------------- divice selection -----------//
   async selectDevice(id: any) {
-
     const alert = await this.alertController.create({
       header: 'Connect',
       message: 'Do you want to connect with?',
@@ -142,30 +143,21 @@ export class DashboardPage implements OnInit {
     await alert.present();
   }
 
-  backToPrivios() {
-    this.router.navigate(['/center-weight-record']);
-
-  }
-
+  //------------- if success -------//
   success = (data) => {
     alert("Successfully Connected");
-    this.bluetoothconnected = true;
-    this.bluetoothnotconnected = false;
-    localStorage.setItem("bluetoothStatus", this.bluetoothconnected)
+  
+    localStorage.setItem("bluetoothStatus", "connected")
     this.router.navigate(['/centerweight-auto-weighter']);
   }
+
+  //------------ if fails -----------//
   fail = (error) => {
     alert(error);
-    this.bluetoothnotconnected = true;
-    this.bluetoothconnected = false;
+    
   }
 
-
-  next() {
-    this.router.navigate(['/centerweight-auto-weighter']);
-  }
-
-
+  //---------------- bluetooth enable func ----------------//
   enablebluetooth() {
     this.bluetoothSerial.enable().then(
       () => {
@@ -177,9 +169,10 @@ export class DashboardPage implements OnInit {
     );
   }
 
-
+  //--------------- logout ----------//
   logout() {
     localStorage.clear()
     this.router.navigate(['/loginpage'])
   }
+
 }

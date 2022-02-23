@@ -168,10 +168,10 @@ export class CenterWeightRecordPage implements OnInit {
 
       //-------- bluetooth connection status checking -----------//
 
-      if (this.bluetoothSts == true) {
+      if (this.bluetoothSts == "connected") {
         this.router.navigate(['/centerweight-auto-weighter'])
       }
-      if (this.bluetoothSts == null || this.bluetoothSts == false) {
+      if (this.bluetoothSts == null || this.bluetoothSts == "") {
         this.router.navigate(['/centerweight-auto-dashboard'])
       }
 

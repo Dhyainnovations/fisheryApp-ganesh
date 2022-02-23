@@ -467,9 +467,7 @@ export class CenterManualWeighterPage implements OnInit {
 
   }
 
-  setting() {
-    this.router.navigate(['/settings'])
-  }
+
 
 
 
@@ -503,11 +501,7 @@ export class CenterManualWeighterPage implements OnInit {
   }
 
   logout() {
-    this.dropdownVisible = false
-    localStorage.removeItem("orgid",)
-    localStorage.removeItem("Fishery-username",)
-    localStorage.removeItem("logintype",)
-    localStorage.removeItem("permission",)
+    localStorage.clear()
     this.router.navigate(['/loginpage'])
   }
 
