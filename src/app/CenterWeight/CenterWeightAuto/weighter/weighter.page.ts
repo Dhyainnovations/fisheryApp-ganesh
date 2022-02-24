@@ -45,7 +45,7 @@ export class WeighterPage implements OnInit {
   setpushdata: any = [];
   category: any;
   quality: any;
-  fishquality: any;
+  fishquality:any;
   type: any;
   place: any;
   weight: any;
@@ -354,20 +354,16 @@ export class WeighterPage implements OnInit {
     });
   }
 
-  test:any = 0;
-  showWeightrecivedWeight:any;
+  
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
     var data = JSON.stringify(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
-    if (this.recivedWeightValue == this.recivedWeightValue) {
-      this.showWeight = this.recivedWeightValue;
-      this.test = this.showWeight;
+    if(this.recivedWeightValue == this.recivedWeightValue) {
+      setTimeout(() => {
+          this.showWeight = this.recivedWeightValue
+      }, 9000)
 
-    }
-    if (this.showWeight != this.recivedWeightValue) {
-      this.showWeightrecivedWeight = this.recivedWeightValue;
-      this.test = this.showWeightrecivedWeight;
     }
 
     this.cdr.detectChanges(); // or here
