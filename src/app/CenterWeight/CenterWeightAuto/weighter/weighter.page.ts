@@ -146,11 +146,11 @@ export class WeighterPage implements OnInit {
           icon: 'success',
           title: 'Submited successfully.'
         })
-        // this.showWeight = "";
-        // this.type = "";
-        // this.place = "";
-        // this.quality = "";
-        // this.category = "";
+        this.showWeight = "";
+        this.type = "";
+        this.place = "";
+        this.quality = "";
+        this.category = "";
 
         this.records()
       }
@@ -360,10 +360,9 @@ export class WeighterPage implements OnInit {
     this.recivedWeightValue = Math.round(val * 100) / 100;
 
     if (this.recivedWeightValue == this.recivedWeightValue) {
-      setTimeout(() => {
+    
+    }else{
         this.showWeight = this.recivedWeightValue
-      }, 8000)
-
     }
 
     this.cdr.detectChanges(); // or here
