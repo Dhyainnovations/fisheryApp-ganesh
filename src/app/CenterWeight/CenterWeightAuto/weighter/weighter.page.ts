@@ -354,21 +354,21 @@ export class WeighterPage implements OnInit {
     });
   }
 
-  flag;
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
     var data = JSON.stringify(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
-    this.flag = this.recivedWeightValue
+
     if (this.recivedWeightValue == this.recivedWeightValue) {
       setTimeout(() => {
-          this.showWeight = this.recivedWeightValue
-      }, 8000)
+        this.showWeight = this.recivedWeightValue
+      }, 15000)
 
     }
 
     this.cdr.detectChanges(); // or here
   }
+
 
   logout() {
     localStorage.clear()
