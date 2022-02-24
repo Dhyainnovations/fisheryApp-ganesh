@@ -44,7 +44,8 @@ export class WeighterPage implements OnInit {
   currentDateTime: any;
   setpushdata: any = [];
   category: any;
-  quality: any
+  quality: any;
+  fishquality:any;
   type: any;
   place: any;
   weight: any;
@@ -117,7 +118,7 @@ export class WeighterPage implements OnInit {
     console.log(this.updateTime);
 
     const data = {
-      quality: this.quality,
+      quality: this.fishquality,
       type: this.type,
       category: this.category,
       place: this.place,
@@ -145,7 +146,12 @@ export class WeighterPage implements OnInit {
           icon: 'success',
           title: 'Submited successfully.'
         })
-        this.weight = "";
+        // this.showWeight = "";
+        // this.type = "";
+        // this.place = "";
+        // this.quality = "";
+        // this.category = "";
+
         this.records()
       }
 
@@ -226,7 +232,7 @@ export class WeighterPage implements OnInit {
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -246,7 +252,7 @@ export class WeighterPage implements OnInit {
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 2000,
+          timer: 1000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -356,7 +362,7 @@ export class WeighterPage implements OnInit {
     if (this.recivedWeightValue == this.recivedWeightValue) {
       setTimeout(() => {
         this.showWeight = this.recivedWeightValue
-      }, 55000)
+      }, 8000)
 
     }
 

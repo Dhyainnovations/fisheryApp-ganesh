@@ -71,7 +71,7 @@
         <div class="col-6">
           <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
             <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
-            <select class="selectDropdown" [(ngModel)]="type" placeholder="type" name="type" style="width: 96%;">
+            <select class="selectDropdown" [(ngModel)]="fishquality" placeholder="fishquality" name="fishquality" style="width: 96%;">
               <option value="" disabled selected>Fish Type</option>
               <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
             </select>
