@@ -296,7 +296,7 @@ export class WeighterPage implements OnInit {
 
   //----------- navigate to setting page ----------//
   navigateToSettings() {
-    this.router.navigate(['/settings'])
+    this.router.navigate(['/centerweight-auto-dashboard'])
   }
 
 
@@ -356,7 +356,7 @@ export class WeighterPage implements OnInit {
     if (this.recivedWeightValue == this.recivedWeightValue) {
       setTimeout(() => {
         this.showWeight = this.recivedWeightValue
-      }, 15000)
+      }, 55000)
 
     }
 
