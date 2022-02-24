@@ -359,7 +359,7 @@ length:any = 1;
     var data = JSON.stringify(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
 
-    for(var i=0;i=length;){
+    for(var i=1;i=length;){
       if (this.recivedWeightValue == this.recivedWeightValue) {
         this.showWeight = this.recivedWeightValue
       }
