@@ -26,7 +26,6 @@ export class LoginPagePage implements OnInit {
 
       }, 2000)
 
-
       this.myDate = new Date();
       this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
       this.fromdate = this.myDate;

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpService } from '../weighter/./../../../shared/http.service';
 import { Router } from '@angular/router'
-import { Network } from '@awesome-cordova-plugins/network/ngx';
 import { BluetoothSerial } from '@awesome-cordova-plugins/bluetooth-serial/ngx';
 import { AlertController } from '@ionic/angular';
 import { ChangeDetectorRef } from '@angular/core';
@@ -17,7 +16,7 @@ import { DatePipe } from '@angular/common';
 })
 export class WeighterPage implements OnInit {
 
-  constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private network: Network, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef,) {
+  constructor(public datepipe: DatePipe, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute, private bluetoothSerial: BluetoothSerial, private alertController: AlertController, private cdr: ChangeDetectorRef,) {
     route.params.subscribe(val => {
 
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
@@ -59,6 +58,7 @@ export class WeighterPage implements OnInit {
   activeItem: any;
   hr: any;
   updateTime: any;
+  showWeight: any;
   cardType: any;
   mergesdLocationList: any = []
   location: any;
@@ -294,7 +294,7 @@ export class WeighterPage implements OnInit {
   }
 
 
-
+  //----------- navigate to setting page ----------//
   navigateToSettings() {
     this.router.navigate(['/settings'])
   }
@@ -337,8 +337,7 @@ export class WeighterPage implements OnInit {
 
 
   }
-
-
+  //----------------- divice connect func ------------//
   deviceConnected() {
     this.bluetoothSerial.subscribeRawData().subscribe((dt) => {
       this.bluetoothSerial.read().then((dd) => {
@@ -348,7 +347,7 @@ export class WeighterPage implements OnInit {
     });
   }
 
-  showWeight: any;
+
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
     var data = JSON.stringify(val)
@@ -357,7 +356,7 @@ export class WeighterPage implements OnInit {
     if (this.recivedWeightValue == this.recivedWeightValue) {
       setTimeout(() => {
         this.showWeight = this.recivedWeightValue
-      }, 9000)
+      }, 15000)
 
     }
 

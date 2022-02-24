@@ -34,8 +34,6 @@ export class CenterWeightRecordPage implements OnInit {
   ngOnInit() {
     this.locationBasedWeightRecords()
     this.user = localStorage.getItem("Fishery-username",)
-    this.bluetoothSts = localStorage.getItem("bluetoothStatus",)
-
   }
 
   myDate: any;

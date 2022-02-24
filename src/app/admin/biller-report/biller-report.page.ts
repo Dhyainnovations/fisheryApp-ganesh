@@ -14,11 +14,10 @@ export class BillerReportPage implements OnInit {
   constructor(public datepipe: DatePipe, public navCtrl: NavController, private http: HttpService, private router: Router, private route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.records()
-      this.LoadReadData();
-
+      this.tableRecodrs = []
     });
-    this.LoadReadData()
-    this.tableRecodrs = []
+  
+    
   }
 
   ngOnInit() {
@@ -33,8 +32,10 @@ export class BillerReportPage implements OnInit {
   fromdate: any;
   todate: any;
   tableRecodrs: any = []
-  totalQuantity:any;
+  totalQuantity: any;
   isVisible: any = false;
+  price: any;
+  totalPrice: any = 0;
 
 
   dosomething(event) {
@@ -49,15 +50,7 @@ export class BillerReportPage implements OnInit {
     this.router.navigate(['/admindashboard'])
   }
 
-  LoadReadData() {
-    this.route.queryParams.subscribe(params => {
-      this.fromdate = params.fromdate;
-      this.todate = params.todate;
-      console.log(this.fromdate, this.todate);
-    }
-    );
-  }
-
+  
   //--------------- table records -------------//
   records() {
     const data = {
@@ -65,12 +58,16 @@ export class BillerReportPage implements OnInit {
       to_date: this.locToDate
     }
 
-    this.http.post('/list_date_manual_weight', data).subscribe((response: any) => {
+    this.http.post('/list_localsale_date_manual_bill', data).subscribe((response: any) => {
       console.log(response);
-      this.totalQuantity = response.total_quantity
+      this.totalQuantity = response.total_quantity;
       this.tableRecodrs = response.records;
       this.isVisible = false;
-
+      for (var i = 0; i <= response.records.length; i++) {
+        this.price = response.records[i].totalamount;
+        this.totalPrice += parseInt(response.records[i].totalamount);
+      }
+    
     }, (error: any) => {
       console.log(error);
       this.totalQuantity = 0;
