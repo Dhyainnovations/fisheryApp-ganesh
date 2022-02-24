@@ -362,13 +362,8 @@ export class WeighterPage implements OnInit {
     this.flag = this.recivedWeightValue
     if (this.recivedWeightValue == this.recivedWeightValue) {
       setTimeout(() => {
-        if(this.flag == this.recivedWeightValue){
-          this.showWeight = this.recivedWeightValue;
-          this.flag = "";
-        }if(this.showWeight != this.recivedWeightValue){
           this.showWeight = this.recivedWeightValue
-        }
-      }, 80000)
+      }, 8000)
 
     }
 
