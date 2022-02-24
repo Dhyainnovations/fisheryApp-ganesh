@@ -302,6 +302,7 @@ export class WeighterPage implements OnInit {
 
   //----------- navigate to setting page ----------//
   navigateToSettings() {
+    localStorage.removeItem("bluetoothStatus")
     this.router.navigate(['/centerweight-auto-dashboard'])
   }
 
@@ -353,15 +354,20 @@ export class WeighterPage implements OnInit {
     });
   }
 
-
+  flag;
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
     var data = JSON.stringify(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
-    this.showWeight = this.recivedWeightValue
-    if (this.showWeight != this.recivedWeightValue) {
+    this.flag = this.recivedWeightValue
+    if (this.recivedWeightValue == this.recivedWeightValue) {
       setTimeout(() => {
-        this.showWeight = this.recivedWeightValue
+        if(this.flag == this.recivedWeightValue){
+          this.showWeight = this.recivedWeightValue;
+          this.flag = "";
+        }if(this.showWeight != this.recivedWeightValue){
+          this.showWeight = this.recivedWeightValue
+        }
       }, 80000)
 
     }
