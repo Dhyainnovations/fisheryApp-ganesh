@@ -353,16 +353,22 @@ export class WeighterPage implements OnInit {
     });
   }
 
-
+length:any = 1;
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
     var data = JSON.stringify(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
 
-    if (this.recivedWeightValue == this.recivedWeightValue) {
-    
-    }else{
+    for(var i=0;i=length;){
+      if (this.recivedWeightValue == this.recivedWeightValue) {
         this.showWeight = this.recivedWeightValue
+      }
+      this.length = 0;
+    }
+
+    if(this.recivedWeightValue != this.recivedWeightValue){
+        this.showWeight = this.recivedWeightValue;
+        this.length = 1;
     }
 
     this.cdr.detectChanges(); // or here
