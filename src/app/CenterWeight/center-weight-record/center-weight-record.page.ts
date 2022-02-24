@@ -26,7 +26,6 @@ export class CenterWeightRecordPage implements OnInit {
     });
 
     this.myDate = new Date();
-
     this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
     this.fromdate = this.myDate;
     this.todate = this.myDate
@@ -72,6 +71,8 @@ export class CenterWeightRecordPage implements OnInit {
     this.todate = val
   }
 
+
+  //--------------- navigate to weighter report page ------------//
   dateBasedRecord() {
     this.router.navigate(['/weighter-report'], { queryParams: { fromdate: this.fromdate, todate: this.todate } })
     localStorage.setItem("fromDate", this.fromdate)

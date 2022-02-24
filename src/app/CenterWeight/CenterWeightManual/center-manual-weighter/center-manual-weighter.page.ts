@@ -64,58 +64,41 @@ export class CenterManualWeighterPage implements OnInit {
     this.router.navigate(['/center-weight-record'])
   }
 
-  //------------- center button click func ------------//
-  center(val) {
-    this.activeItem = "center"
-    this.type = val;
-    this.http.get('/list_center_place',).subscribe((response: any) => {
-      this.locationlist = response.records;
-
-    }, (error: any) => {
-      console.log(error);
+    //-------------------- center button click func ----------//
+    center(val) {
+      this.activeItem = "center"
+      this.type = val;
+      this.locationlist = []
+      var GetLocation = localStorage.getItem('SetLocation');
+      this.locationlist = (JSON.parse((GetLocation)));
     }
-    );
-  }
-
-  //------------- localsale button click func ------------//
-  localsale(val) {
-    this.type = val;
-    this.activeItem = "localsale"
-    this.http.get('/list_localsale_place',).subscribe((response: any) => {
-      this.locationlist = response.records;
-
-    }, (error: any) => {
-      console.log(error);
+  
+    //-------------------- localsale button click func ----------//
+    localsale(val) {
+      this.type = val;
+      this.activeItem = "localsale"
+      this.locationlist = []
+      var GetLocalSaleLocation = localStorage.getItem('localSaleLocation');
+      this.locationlist = (JSON.parse((GetLocalSaleLocation)));
     }
-    );
-  }
-
-  //------------- merchant button click func ------------//
-  market(val) {
-    this.type = val;
-    this.activeItem = "market"
-    this.http.get('/list_market',).subscribe((response: any) => {
-      this.locationlist = response.records;
-    }, (error: any) => {
-      console.log(error);
+  
+    //-------------------- market button click func ----------//
+    market(val) {
+      this.type = val;
+      this.activeItem = "market"
+      this.locationlist = []
+      var GetMarketLocation = localStorage.getItem('marketLocation');
+      this.locationlist = (JSON.parse((GetMarketLocation)));
     }
-    );
-
-  }
-
-  //------------- merchant button click func ------------//
-  merchant(val) {
-    this.type = val;
-    this.activeItem = "merchant"
-    this.http.get('/list_merchant',).subscribe((response: any) => {
-      this.locationlist = response.records;
-
-    }, (error: any) => {
-      console.log(error);
+  
+    //-------------------- merchant button click func ----------//
+    merchant(val) {
+      this.type = val;
+      this.activeItem = "merchant"
+      this.locationlist = []
+      var GetMerchantLocation = localStorage.getItem('merchantLocation');
+      this.locationlist = (JSON.parse((GetMerchantLocation)));
     }
-    );
-
-  }
 
   //----------------- Api call ------------//
   onlineApiCal() {

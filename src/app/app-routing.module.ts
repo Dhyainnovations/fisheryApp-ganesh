@@ -48,7 +48,11 @@ const routes: Routes = [
   {
     path: 'center-weight-record',
     loadChildren: () => import('./CenterWeight/center-weight-record/center-weight-record.module').then( m => m.CenterWeightRecordPageModule)
+  },  {
+    path: 'biller-report',
+    loadChildren: () => import('./admin/biller-report/biller-report.module').then( m => m.BillerReportPageModule)
   },
+
 
   
 

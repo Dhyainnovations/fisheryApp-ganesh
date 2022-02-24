@@ -141,14 +141,11 @@ export class WeighterPage implements OnInit {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           }
         })
-
         Toast.fire({
           icon: 'success',
           title: 'Submited successfully.'
         })
-
         this.weight = "";
-
         this.records()
       }
 

@@ -22,7 +22,6 @@ export class AdmindashboardPage implements OnInit {
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
       this.user = localStorage.getItem("Fishery-username",)
       this.locLoginType = localStorage.getItem("logintype",)
-      this.user = localStorage.getItem("permission",)
       this.records()
       this.totalAmount()
       this.totalWeight()

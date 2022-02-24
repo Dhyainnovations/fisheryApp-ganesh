@@ -5,76 +5,72 @@ import { Router } from '@angular/router'
 import { NavController } from '@ionic/angular';
 import { DatePipe } from '@angular/common';
 @Component({
-  selector: 'app-weighter-report',
-  templateUrl: './weighter-report.page.html',
-  styleUrls: ['./weighter-report.page.scss'],
+  selector: 'app-biller-report',
+  templateUrl: './biller-report.page.html',
+  styleUrls: ['./biller-report.page.scss'],
 })
-export class WeighterReportPage implements OnInit {
+export class BillerReportPage implements OnInit {
 
-  constructor( public datepipe: DatePipe, public navCtrl: NavController, private http: HttpService, private router: Router, private route: ActivatedRoute) {
+  constructor(public datepipe: DatePipe, public navCtrl: NavController, private http: HttpService, private router: Router, private route: ActivatedRoute) {
     route.params.subscribe(val => {
       this.records()
       this.LoadReadData();
-      this.tableRecodrs = []
-    });
 
+    });
+    this.LoadReadData()
+    this.tableRecodrs = []
   }
 
   ngOnInit() {
+
   }
 
   locLoginType = localStorage.getItem("logintype",)
+  locPermission = localStorage.getItem("permission",)
   locFromDate = localStorage.getItem("fromDate",)
   locToDate = localStorage.getItem("toDate",)
   todayDate: any;
   fromdate: any;
   todate: any;
-  isVisible: any = false;
   tableRecodrs: any = []
-  totalQuantity: any;
+  totalQuantity:any;
+  isVisible: any = false;
+
 
   dosomething(event) {
     setTimeout(() => {
       event.target.complete();
 
-    }, 1000);
+    }, 1500);
   }
 
 
   backToPrivios() {
-    //------------logintype checking -------------//
-    if (this.locLoginType == "ROLE_ADMIN") {
-      this.router.navigate(['/admindashboard'])
-    }
-
-    if (this.locLoginType == "ROLE_WSHO") {
-      this.router.navigate(['/center-weight-record'])
-    }
+    this.router.navigate(['/admindashboard'])
   }
 
-  //------------Query params get data -------------//
   LoadReadData() {
     this.route.queryParams.subscribe(params => {
       this.fromdate = params.fromdate;
       this.todate = params.todate;
-
+      console.log(this.fromdate, this.todate);
     }
     );
   }
 
-
-  //------------report records -------------//
+  //--------------- table records -------------//
   records() {
     const data = {
       from_date: this.locFromDate,
       to_date: this.locToDate
     }
 
-    this.http.post('/list_center_date_manual_weight', data).subscribe((response: any) => {
+    this.http.post('/list_date_manual_weight', data).subscribe((response: any) => {
+      console.log(response);
       this.totalQuantity = response.total_quantity
       this.tableRecodrs = response.records;
       this.isVisible = false;
-      
+
     }, (error: any) => {
       console.log(error);
       this.totalQuantity = 0;
@@ -85,3 +81,4 @@ export class WeighterReportPage implements OnInit {
 
 
 }
+

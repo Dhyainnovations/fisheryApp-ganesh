@@ -1,33 +1,32 @@
 <ion-content class="background">
 
-  <!---- Refresher  ------>
   <div class="ion-padding">
     <ion-refresher slot="fixed" (ionRefresh)="dosomething($event)">
       <ion-refresher-content pullingIcon="arrow-dropdown" refreshingSpiner="circles" refreshingText="Refreshing...">
       </ion-refresher-content>
     </ion-refresher>
   </div>
-
-
- <!-------- online ofline alert----------> 
   <div class="row">
-    <div class="col-6 mt-2 ">
+
+    <div class="col-6 mt-4 ">
       <ion-icon style="margin-left:20px;width: 45px; height:25px;color:#fff" (click)="backToPrivios()" name="arrow-back">
       </ion-icon>
     </div>
   </div>
 
-
   <div class="row">
-    <div style="margin-top:-30px" class="col-12 ion-text-center">
-      <b style="font-size: 18px;">WEIGHTER REPORT</b>
+    
+    <div style="margin-top:-10%" class="col-12 ion-text-center">
+      <b style="font-size: 18px;">BILLER REPORT</b>
     </div>
 
     <div class="col-12 ion-text-center mt-3">
       <p> Total Quantity = <span>{{totalQuantity}}KG</span></p>
     </div>
 
-    <!-----report Table----->
+
+
+    <!-----Table----->
     <table class="table">
       <thead style="background-color:#6863CC;" class="text-white">
         <tr>
@@ -54,7 +53,7 @@
         <h4 class="ion-text-center mx-3">No Records</h4>
       </div>
     </div>
-
+    
   </div>
 
 </ion-content>

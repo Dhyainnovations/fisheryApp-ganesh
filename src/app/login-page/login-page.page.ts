@@ -4,7 +4,7 @@ import { HttpService } from '../shared/http.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { Platform } from '@ionic/angular';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.page.html',
@@ -12,7 +12,7 @@ import { Platform } from '@ionic/angular';
 })
 export class LoginPagePage implements OnInit {
 
-  constructor(private platform: Platform, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
+  constructor( public datepipe: DatePipe, private platform: Platform, private router: Router, private activatedRoute: ActivatedRoute, private http: HttpService, route: ActivatedRoute,) {
     route.params.subscribe(val => {
       this.Locallogintype = localStorage.getItem("logintype",)
       this.Localpermission = localStorage.getItem("permission",)
@@ -26,6 +26,11 @@ export class LoginPagePage implements OnInit {
 
       }, 2000)
 
+
+      this.myDate = new Date();
+      this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+      this.fromdate = this.myDate;
+      this.todate = this.myDate
     });
 
   }
@@ -34,7 +39,9 @@ export class LoginPagePage implements OnInit {
 
   }
 
-
+  fromdate: any;
+  todate: any;
+  myDate:any;
   username: any;
   password: any;
   orgid: any;
@@ -47,13 +54,16 @@ export class LoginPagePage implements OnInit {
   Localpermission: any;
   backButtonSubscription: any;
 
+  //---------------- login Api --------------//
   login() {
+
+    localStorage.setItem("fromDate", this.fromdate)
+    localStorage.setItem("toDate", this.todate)
 
     const Data = {
       id: this.username,
       password: this.password
     }
-
 
     this.http.post('/login', Data).subscribe((response: any) => {
       console.log(response);
