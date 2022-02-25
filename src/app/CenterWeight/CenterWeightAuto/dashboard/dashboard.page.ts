@@ -20,7 +20,9 @@ export class DashboardPage implements OnInit {
       this.user = localStorage.getItem("Fishery-username",)
       this.bluetoothStatus = localStorage.getItem("bluetoothStatus",)
       if(this.bluetoothStatus == "connected"){
+        setTimeout(() => {
         this.router.navigate(['/centerweight-auto-weighter'])
+      }, 20000)
       }
 
     });

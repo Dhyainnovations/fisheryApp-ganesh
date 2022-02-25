@@ -73,7 +73,7 @@ export class WeighterPage implements OnInit {
 
   //-------------------- center button click func ----------//
   center(val) {
-    this.showWeight = "";
+  
     this.place = "";
     this.fishquality = "";
     this.category = "";
@@ -87,7 +87,7 @@ export class WeighterPage implements OnInit {
 
   //-------------------- localsale button click func ----------//
   localsale(val) {
-    this.showWeight = "";
+    
     this.place = "";
     this.fishquality = "";
     this.category = "";
@@ -101,7 +101,7 @@ export class WeighterPage implements OnInit {
 
   //-------------------- market button click func ----------//
   market(val) {
-    this.showWeight = "";
+    
     this.place = "";
     this.fishquality = "";
     this.category = "";
@@ -115,7 +115,7 @@ export class WeighterPage implements OnInit {
 
   //-------------------- merchant button click func ----------//
   merchant(val) {
-    this.showWeight = "";
+   
     this.place = "";
     this.fishquality = "";
     this.category = "";
@@ -166,8 +166,8 @@ export class WeighterPage implements OnInit {
           icon: 'success',
           title: 'Submited successfully.'
         })
-
-
+        
+        this.showWeight = "";
         this.records()
       }
 
