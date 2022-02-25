@@ -77,7 +77,6 @@ export class WeighterPage implements OnInit {
     this.place = "";
     this.fishquality = "";
     this.category = "";
-    this.showWeight = 0;
     this.activeItem = "center"
     this.type = val;
     this.locationlist = []
@@ -91,7 +90,6 @@ export class WeighterPage implements OnInit {
     this.place = "";
     this.fishquality = "";
     this.category = "";
-    this.showWeight = 0;
     this.type = val;
     this.activeItem = "localsale"
     this.locationlist = []
@@ -105,7 +103,6 @@ export class WeighterPage implements OnInit {
     this.place = "";
     this.fishquality = "";
     this.category = "";
-    this.showWeight = 0;
     this.type = val;
     this.activeItem = "market"
     this.locationlist = []
@@ -119,7 +116,6 @@ export class WeighterPage implements OnInit {
     this.place = "";
     this.fishquality = "";
     this.category = "";
-    this.showWeight = 0;
     this.type = val;
     this.activeItem = "merchant"
     this.locationlist = []
@@ -166,7 +162,7 @@ export class WeighterPage implements OnInit {
           icon: 'success',
           title: 'Submited successfully.'
         })
-        
+
         this.showWeight = "";
         this.records()
       }
