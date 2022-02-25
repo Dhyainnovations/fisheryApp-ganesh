@@ -163,6 +163,7 @@ export class DashboardPage implements OnInit {
   //--------------- logout ----------//
   logout() {
     localStorage.clear()
+    this.bluetoothSerial.disconnect();
     this.router.navigate(['/loginpage'])
   }
 

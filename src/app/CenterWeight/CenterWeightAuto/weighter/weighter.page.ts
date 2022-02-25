@@ -59,7 +59,7 @@ export class WeighterPage implements OnInit {
   activeItem: any;
   hr: any;
   updateTime: any;
-  showWeight: any;
+  showWeight: any = 0;
   cardType: any;
   mergesdLocationList: any = []
   location: any;
@@ -149,8 +149,9 @@ export class WeighterPage implements OnInit {
         this.showWeight = "";
         this.type = "";
         this.place = "";
-        this.quality = "";
+        this.fishquality = "";
         this.category = "";
+        this.showWeight = 0;
 
         this.records()
       }
@@ -359,17 +360,16 @@ export class WeighterPage implements OnInit {
   onDataReceive(val) {
     var data = JSON.stringify(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
-    if(this.recivedWeightValue == this.recivedWeightValue) {
-      setTimeout(() => {
-          this.showWeight = this.recivedWeightValue
-      }, 9000)
-
-    }
-
-    this.cdr.detectChanges(); // or here
+    
   }
 
+  reciveWeight(){
+    this.showWeight = this.recivedWeightValue
+  }
+
+
   logout() {
+    this.bluetoothSerial.disconnect();
     localStorage.clear()
     this.router.navigate(['/loginpage'])
   }
