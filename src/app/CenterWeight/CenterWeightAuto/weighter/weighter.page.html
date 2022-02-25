@@ -48,8 +48,10 @@
           style="border: 0.5px solid rgba(0, 0, 0, 0.164);  box-shadow: 1px 1px 8px 1px #6863CC;width: 85%;margin: auto;">
           {{showWeight}} <span style="font-size: 17px;">Kg</span></h1>
       </div>
-      
-      <div (click)="reciveWeight()" class="btn btn-primary">Weight</div>
+
+      <div  (click)="reciveWeight()" class="col-12 ion-text-center mt-3">
+         <button  class="btn btn-primary" style="width: 70%;background-color: #6863CC;" > Capture Weight</button>
+      </div>
 
     </div>
 
@@ -57,29 +59,6 @@
 
     <div class="container weighter-details-wrapper">
       <div class="row">
-
-        <!-----Fish category----->
-        <div class="col-6">
-          <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
-            <p class="select-category" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
-            <select class="selectDropdown" [(ngModel)]="category" placeholder="category" name="category">
-              <option value="" disabled selected>Category</option>
-              <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
-            </select>
-          </form>
-        </div>
-
-        <!-----Fish quality----->
-        <div class="col-6">
-          <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
-            <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
-            <select class="selectDropdown" [(ngModel)]="fishquality" placeholder="fishquality" name="fishquality" style="width: 96%;">
-              <option value="" disabled selected>Fish Type</option>
-              <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
-            </select>
-          </form>
-        </div>
-
         <!------------ type based buttons -------------->
         <div id="sideMenuList" class="col-6">
           <button [class]="activeItem == 'center' ? 'active list': 'list' " (click)="center('center')"
@@ -96,6 +75,30 @@
         <div id="sideMenuList" class="col-6">
           <button [class]="activeItem == 'merchant' ? 'active list': 'list' " (click)="merchant('merchant')"
             class="btn btn-primary type-btn">Merchant</button>
+        </div>
+
+
+        <!-----Fish category----->
+        <div class="col-6">
+          <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
+            <p class="select-category mx-2" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
+            <select style="width: 96%;" class="selectDropdown mx-2" [(ngModel)]="category" placeholder="category" name="category">
+              <option value="" disabled selected>Category</option>
+              <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
+            </select>
+          </form>
+        </div>
+
+        <!-----Fish quality----->
+        <div class="col-6">
+          <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
+            <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
+            <select class="selectDropdown" [(ngModel)]="fishquality" placeholder="fishquality" name="fishquality"
+              style="width: 96%;">
+              <option value="" disabled selected>Fish Type</option>
+              <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
+            </select>
+          </form>
         </div>
 
       </div>

@@ -45,7 +45,7 @@ export class WeighterPage implements OnInit {
   setpushdata: any = [];
   category: any;
   quality: any;
-  fishquality:any;
+  fishquality: any;
   type: any;
   place: any;
   weight: any;
@@ -73,6 +73,11 @@ export class WeighterPage implements OnInit {
 
   //-------------------- center button click func ----------//
   center(val) {
+    this.showWeight = "";
+    this.place = "";
+    this.fishquality = "";
+    this.category = "";
+    this.showWeight = 0;
     this.activeItem = "center"
     this.type = val;
     this.locationlist = []
@@ -82,6 +87,11 @@ export class WeighterPage implements OnInit {
 
   //-------------------- localsale button click func ----------//
   localsale(val) {
+    this.showWeight = "";
+    this.place = "";
+    this.fishquality = "";
+    this.category = "";
+    this.showWeight = 0;
     this.type = val;
     this.activeItem = "localsale"
     this.locationlist = []
@@ -91,6 +101,11 @@ export class WeighterPage implements OnInit {
 
   //-------------------- market button click func ----------//
   market(val) {
+    this.showWeight = "";
+    this.place = "";
+    this.fishquality = "";
+    this.category = "";
+    this.showWeight = 0;
     this.type = val;
     this.activeItem = "market"
     this.locationlist = []
@@ -100,6 +115,11 @@ export class WeighterPage implements OnInit {
 
   //-------------------- merchant button click func ----------//
   merchant(val) {
+    this.showWeight = "";
+    this.place = "";
+    this.fishquality = "";
+    this.category = "";
+    this.showWeight = 0;
     this.type = val;
     this.activeItem = "merchant"
     this.locationlist = []
@@ -146,12 +166,7 @@ export class WeighterPage implements OnInit {
           icon: 'success',
           title: 'Submited successfully.'
         })
-        this.showWeight = "";
-        this.type = "";
-        this.place = "";
-        this.fishquality = "";
-        this.category = "";
-        this.showWeight = 0;
+
 
         this.records()
       }
@@ -355,15 +370,15 @@ export class WeighterPage implements OnInit {
     });
   }
 
-  
+
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
     var data = JSON.stringify(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
-    
+
   }
 
-  reciveWeight(){
+  reciveWeight() {
     this.showWeight = this.recivedWeightValue
   }
 

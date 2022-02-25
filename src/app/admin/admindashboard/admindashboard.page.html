@@ -30,18 +30,15 @@
 
 
   <!-----Display total Weight----->
-  <div class="weight-display-wrap text-center mt-4 px-2">
-    <div class="weight-display" style="font-size: 16px;">
-      <p> Today's Total Weight <b><br> {{totalweight}}</b> Kgs</p>
+  <div class="container">
+    <div class="weight-display-wrap text-center mt-4 px-2">
+      <div class="weight-display" style="font-size: 16px;">
+        <p> Today's Total Weight <b><br> {{totalweight}}</b> Kgs</p>
+      </div>
     </div>
   </div>
 
-  <!-----Display total amount----->
-  <div class="weight-display-wrap text-center mt-4 px-2">
-    <div class="weight-display" style="font-size: 16px;">
-      <p>Today's Total Amount <b> <br>Rs.{{totalCost}}</b>/-</p>
-    </div>
-  </div>
+
 
 
   <div class="container weighter-details-wrapper" style="margin-top: -5px;">
@@ -75,6 +72,14 @@
     </div>
 
     <!----------- Biller  ------------>
+
+    <!-----Display total amount----->
+    <div class="weight-display-wrap text-center mt-4 px-2">
+      <div class="weight-display" style="font-size: 16px;">
+        <p>Today's Total Amount <b> <br>Rs.{{totalCost}}</b>/-</p>
+      </div>
+    </div>
+
     <div class="card row mb-3">
       <h6 class="mt-2" style="color: #6863CC;"><b><u>Biller:</u></b></h6>
       <div class="row mt-4">
