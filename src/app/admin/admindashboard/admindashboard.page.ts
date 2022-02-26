@@ -22,7 +22,9 @@ export class AdmindashboardPage implements OnInit {
       this.locLoginType = localStorage.getItem("logintype",)
       this.totalAmount()
       this.totalWeight()
-
+      this.marketTableRecords()
+      this.merchantTableRecords()
+      this.stockTableRecords()
     });
 
 
@@ -45,6 +47,14 @@ export class AdmindashboardPage implements OnInit {
   totalQuantity: any;
   locFromDate: any;
   locToDate: any;
+  stockTableEmpty: any = true;
+  marketTableEmpty: any = true;
+  merchantTableEmpty: any = true;
+  stockTableRec: any = []
+  marketTableRec: any = []
+  merchantTableRec: any = []
+  centerStockRecords: any = [];
+  localsaleStockRecords: any = [];
 
   dosomething(event) {
     setTimeout(() => {
@@ -118,6 +128,63 @@ export class AdmindashboardPage implements OnInit {
       }
 
     }
+  }
+
+
+  //------------ stock table records --------------//
+  stockTableRecords() {
+    this.http.get('/list_table_stock',).subscribe((response: any) => {
+      if (this.stockTableRec == "No manual weight found.") {
+        this.stockTableRec = [];
+        this.stockTableEmpty = true
+      } else {
+        this.stockTableEmpty = false
+        this.centerStockRecords = response[0].center_records;
+        this.localsaleStockRecords = response[1].localsale_records;
+      }
+    }, (error: any) => {
+      console.log(error);
+      this.stockTableRec = [];
+      this.stockTableEmpty = true
+
+    }
+    );
+  }
+
+  //------------ market table records --------------//
+
+  marketTableRecords() {
+    this.http.get('/list_table_market',).subscribe((response: any) => {
+      this.marketTableRec = response.records;
+      if (this.marketTableRec == "No manual weight found.") {
+        this.marketTableRec = [];
+        this.marketTableEmpty = true
+      } else {
+        this.marketTableEmpty = false
+      }
+    }, (error: any) => {
+      console.log(error);
+      this.marketTableRec = [];
+    }
+    );
+  }
+
+  //------------ merchant table records --------------//
+
+  merchantTableRecords() {
+    this.http.get('/list_table_merchant',).subscribe((response: any) => {
+      this.merchantTableRec = response.records;
+      if (this.merchantTableRec == "No manual weight found.") {
+        this.merchantTableRec = [];
+        this.merchantTableEmpty = true
+      } else {
+        this.merchantTableEmpty = false
+      }
+    }, (error: any) => {
+      console.log(error);
+      this.merchantTableRec = [];
+    }
+    );
   }
 
 

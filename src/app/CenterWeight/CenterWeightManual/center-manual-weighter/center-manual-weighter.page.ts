@@ -148,6 +148,7 @@ export class CenterManualWeighterPage implements OnInit {
         })
 
         this.weight = "";
+        this.activeItem = "";
 
         this.records()
       }

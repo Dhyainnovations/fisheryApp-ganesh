@@ -56,12 +56,10 @@ export class CenterWeightRecordPage implements OnInit {
   marketTableEmpty: any = true;
   merchantTableEmpty: any = true;
   stockTableRec: any = []
-  stockType: any = '';
-  stockLocation: any = '';
-  stockCategory: any = '';
-  stockQuality: any = '';
-  stockQuantity: any = '';
-
+  marketTableRec: any = []
+  merchantTableRec: any = []
+  centerStockRecords: any = [];
+  localsaleStockRecords: any = [];
   fromDate(val) {
     this.fromdate = val
 
@@ -222,20 +220,12 @@ export class CenterWeightRecordPage implements OnInit {
   //------------ stock table records --------------//
   stockTableRecords() {
     this.http.get('/list_table_stock',).subscribe((response: any) => {
-      this.stockTableRec = response;
       if (this.stockTableRec == "No manual weight found.") {
         this.stockTableRec = [];
         this.stockTableEmpty = true
       } else {
-        for (var i = 0; i < response.length; i++) {
-          this.stockTableEmpty = false
-          this.stockType = response[i].records[i].type;
-          this.stockLocation = response[i].records[i].location;
-          this.stockCategory = response[i].records[i].category;
-          this.stockQuality = response[i].records[i].quality;
-          this.stockQuantity = response[i].records[i].quantity;
-        }
-
+       this.centerStockRecords = response[0].center_records;
+       this.localsaleStockRecords = response[1].localsale_records;
       }
     }, (error: any) => {
       console.log(error);
@@ -247,7 +237,7 @@ export class CenterWeightRecordPage implements OnInit {
   }
 
   //------------ market table records --------------//
-  marketTableRec: any = []
+  
   marketTableRecords() {
     this.http.get('/list_table_market',).subscribe((response: any) => {
       this.marketTableRec = response.records;
@@ -265,7 +255,7 @@ export class CenterWeightRecordPage implements OnInit {
   }
 
   //------------ merchant table records --------------//
-  merchantTableRec: any = []
+  
   merchantTableRecords() {
     this.http.get('/list_table_merchant',).subscribe((response: any) => {
       this.merchantTableRec = response.records;

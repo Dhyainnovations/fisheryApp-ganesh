@@ -164,6 +164,7 @@ export class WeighterPage implements OnInit {
         })
 
         this.showWeight = "";
+        this.activeItem = "";
         this.records()
       }
 
