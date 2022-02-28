@@ -25,7 +25,7 @@ export class WeighterPage implements OnInit {
       this.type = "center";
       this.activeItem = "center"
 
-      
+
     });
 
     this.deviceConnected();
@@ -120,6 +120,7 @@ export class WeighterPage implements OnInit {
     this.hr = hours + 12;
 
     this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+
     if (hours < 10) {
       this.updateTime = this.myDate + ' ' + ("0" + hours) + ":" + minutes + ":" + seconds
     } else {
@@ -133,7 +134,7 @@ export class WeighterPage implements OnInit {
     }
 
     if (minutes < 10) {
-      this.updateTime = this.myDate + ' ' + hours + ":" + ("0" + minutes) + ":" + ("0" + seconds)
+      this.updateTime = this.myDate + ' ' + hours + ":" + ("0" + minutes) + ":" + seconds
     } else {
       this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
     }

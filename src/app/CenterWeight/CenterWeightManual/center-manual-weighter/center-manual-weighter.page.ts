@@ -106,6 +106,7 @@ export class CenterManualWeighterPage implements OnInit {
     let seconds = new Date().getSeconds();
     this.hr = hours + 12;
     this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+
     if (hours < 10) {
       this.updateTime = this.myDate + ' ' + ("0" + hours) + ":" + minutes + ":" + seconds
     } else {
@@ -119,15 +120,15 @@ export class CenterManualWeighterPage implements OnInit {
     }
 
     if (minutes < 10) {
-      this.updateTime = this.myDate + ' ' + hours + ":" + ("0" + minutes) + ":" + ("0" + seconds)
+      this.updateTime = this.myDate + ' ' + hours + ":" + ("0" + minutes) + ":" + seconds
     } else {
       this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
     }
 
-    if(this.type == null || undefined){
+    if (this.type == null || undefined) {
       this.type = "center"
     }
-    
+
     const data = {
       quality: this.fishQuality,
       type: this.type,
@@ -141,7 +142,7 @@ export class CenterManualWeighterPage implements OnInit {
     }
 
     console.log(data);
-    
+
 
     this.setpushdata.push(data);
     console.log(this.setpushdata);
