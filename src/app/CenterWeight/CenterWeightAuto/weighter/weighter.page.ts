@@ -22,9 +22,12 @@ export class WeighterPage implements OnInit {
       this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
       this.getCategoryList()
       this.records()
+      this.type = "center";
+      this.activeItem = "center"
+
+      
     });
-    this.type = "center";
-    this.activeItem = "center"
+
     this.deviceConnected();
     this.myDate = new Date();
     this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -61,7 +64,7 @@ export class WeighterPage implements OnInit {
   activeItem: any = "center";
   hr: any;
   updateTime: any;
-  showWeight: any = 0;
+  showWeight: any = 1;
   cardType: any;
   mergesdLocationList: any = []
   location: any;
@@ -119,6 +122,18 @@ export class WeighterPage implements OnInit {
     this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
     if (hours < 10) {
       this.updateTime = this.myDate + ' ' + ("0" + hours) + ":" + minutes + ":" + seconds
+    } else {
+      this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+    }
+
+    if (seconds < 10) {
+      this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + ("0" + seconds)
+    } else {
+      this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+    }
+
+    if (minutes < 10) {
+      this.updateTime = this.myDate + ' ' + hours + ":" + ("0" + minutes) + ":" + ("0" + seconds)
     } else {
       this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
     }
@@ -363,12 +378,16 @@ export class WeighterPage implements OnInit {
 
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
+    alert(val)
     var data = JSON.stringify(val)
+    alert(data)
+    alert(val)
     this.recivedWeightValue = Math.round(val * 100) / 100;
 
   }
 
   reciveWeight() {
+    alert(this.recivedWeightValue)
     if (this.recivedWeightValue >= 0) {
       this.showWeight = this.recivedWeightValue;
     }
