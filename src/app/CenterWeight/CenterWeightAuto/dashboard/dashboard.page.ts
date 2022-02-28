@@ -22,7 +22,7 @@ export class DashboardPage implements OnInit {
       if(this.bluetoothStatus == "connected"){
         setTimeout(() => {
         this.router.navigate(['/centerweight-auto-weighter'])
-      }, 1000)
+      }, 500)
       }
 
     });
