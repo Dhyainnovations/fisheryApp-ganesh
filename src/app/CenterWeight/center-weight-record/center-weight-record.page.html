@@ -166,14 +166,14 @@
   </div>
 
   
-  <div style="border:1px solid #fff;box-shadow:3px 3px 16px 4px #ccc;" class="row mt-4">
-    <div class="col-6 mt-2">
+  <div style="border:1px solid #fff;box-shadow:3px 3px 16px 4px #ccc;" class="row mt-3">
+    <div class="col-6 mt-4">
       <p style="color: #6863CC;margin-left: 5px;"><b>From Date:</b></p>
       <p style="color: #6863CC;margin-left: 5px;"><b>To Date:</b></p>
 
     </div>
 
-    <div class="col-6 mt-2" style="margin-left: -10%;">
+    <div class="col-6 mt-4" style="margin-left: -10%;">
       <div>
         <input (change)="fromDate(fromdate)" [(ngModel)]="fromdate" type="date">
       </div>
@@ -182,9 +182,7 @@
       </div>
     </div>
 
-    <div class="col-12 ion-text-center mb-2">
-
-
+    <div class="col-12 ion-text-center mb-3">
       <ion-button (click)="dateBasedRecord()" class="submit-button" color="transparent" expand="block"
         style="background-color: #6863CC;width: 75%;margin: auto;" [disabled]="!fromdate || !todate ">
         <b>SUBMIT</b>
@@ -221,7 +219,7 @@
             <div class="col-2 ion-text-left mt-2">
 
               <div (click)="delete(record.boxid)" [value]="record.boxid" class="dot">
-                <svg style="margin-left:7px;margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="20" height="24"
+                <svg style="margin-left:7px;margin-top:5px" width="20" height="24"
                   fill="#fff" class="bi bi-trash" viewBox="0 0 16 16">
                   <path
                     d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />

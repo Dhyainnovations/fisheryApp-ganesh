@@ -48,13 +48,35 @@
           {{showWeight}} <span style="font-size: 17px;">Kg</span></h1>
       </div>
 
-      <div  (click)="reciveWeight()" class="col-12 ion-text-center mt-3">
-         <button  class="btn btn-primary" style="width: 70%;background-color: #6863CC;" > Capture Weight</button>
+      <div (click)="reciveWeight()" class="col-12 ion-text-center mt-3">
+        <button class="btn btn-primary" style="width: 70%;background-color: #6863CC;"> Capture Weight</button>
       </div>
 
     </div>
 
+    <!-----Fish category----->
+    <div class="col-6">
+      <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
+        <p class="select-category mx-2" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
+        <select style="width: 96%;" class="selectDropdown mx-2" [(ngModel)]="category" placeholder="category"
+          name="category">
+          <option value="" disabled selected>Category</option>
+          <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
+        </select>
+      </form>
+    </div>
 
+    <!-----Fish quality----->
+    <div class="col-6">
+      <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
+        <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
+        <select class="selectDropdown" [(ngModel)]="fishquality" placeholder="fishquality" name="fishquality"
+          style="width: 96%;">
+          <option value="" disabled selected>Fish Type</option>
+          <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
+        </select>
+      </form>
+    </div>
 
     <div class="container weighter-details-wrapper">
       <div class="row">
@@ -74,30 +96,6 @@
         <div id="sideMenuList" class="col-6">
           <button [class]="activeItem == 'merchant' ? 'active list': 'list' " (click)="merchant('merchant')"
             class="btn btn-primary type-btn">Merchant</button>
-        </div>
-
-
-        <!-----Fish category----->
-        <div class="col-6">
-          <form (change)="SelectCategory(Selectcategory.value)" #Selectcategory="ngForm">
-            <p class="select-category mx-2" style="font-size: 13px;"><b><u>Select Category:</u></b></p>
-            <select style="width: 96%;" class="selectDropdown mx-2" [(ngModel)]="category" placeholder="category" name="category">
-              <option value="" disabled selected>Category</option>
-              <option *ngFor="let category of categorylist" [value]="category.category">{{category.category}}</option>
-            </select>
-          </form>
-        </div>
-
-        <!-----Fish quality----->
-        <div class="col-6">
-          <form (change)="SelectType(Selecttype.value)" #Selecttype="ngForm">
-            <p class="select-category" style="font-size: 13px;"><b><u>Select Quality: </u></b></p>
-            <select class="selectDropdown" [(ngModel)]="fishquality" placeholder="fishquality" name="fishquality"
-              style="width: 96%;">
-              <option value="" disabled selected>Fish Type</option>
-              <option *ngFor="let type of StoreTypeData" [value]="type">{{type}}</option>
-            </select>
-          </form>
         </div>
 
       </div>
@@ -125,7 +123,7 @@
       <div class="button-wrapper mt-2 mx-2 ">
         <ion-button (click)="onlineApiCal()" class="submit-button" color="transparent"
           style="background-color: #6863CC;width: 100% !important;"
-          [disabled]="!place || !type || !category   || showWeight <='0' ">
+          [disabled]="!place || !category   || showWeight <='0' ">
           <b>SUBMIT</b>
         </ion-button>
       </div>
@@ -157,9 +155,12 @@
             </div>
             <div class="col-2 ion-text-left mt-2">
               <div (click)="delete(record.boxid)" [value]="record.boxid" class="dot">
-                <svg style="margin-left:7px;margin-top:5px" xmlns="http://www.w3.org/2000/svg" width="20" height="24" fill="#fff" class="bi bi-trash" viewBox="0 0 16 16">
-                  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                <svg style="margin-left:7px;margin-top:5px" width="20" height="24" fill="#fff" class="bi bi-trash"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                  <path fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
                 </svg>
               </div>
             </div>

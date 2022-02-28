@@ -23,9 +23,12 @@ export class WeighterPage implements OnInit {
       this.getCategoryList()
       this.records()
     });
+    this.type = "center";
+    this.activeItem = "center"
     this.deviceConnected();
     this.myDate = new Date();
     this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+    this.center('')
   }
 
 
@@ -34,7 +37,6 @@ export class WeighterPage implements OnInit {
   }
 
   ngOnInit() {
-    this.activeItem = ""
     this.user = localStorage.getItem("Fishery-username",)
   }
 
@@ -46,7 +48,7 @@ export class WeighterPage implements OnInit {
   category: any;
   quality: any;
   fishquality: any;
-  type: any;
+  type: any = "center";
   place: any;
   weight: any;
   mdy: any;
@@ -56,7 +58,7 @@ export class WeighterPage implements OnInit {
   tableRecodrs: any = []
   buttonDisabled: boolean;
   recivedWeightValue: any;
-  activeItem: any;
+  activeItem: any = "center";
   hr: any;
   updateTime: any;
   showWeight: any = 0;
@@ -73,10 +75,6 @@ export class WeighterPage implements OnInit {
 
   //-------------------- center button click func ----------//
   center(val) {
-  
-    this.place = "";
-    this.fishquality = "";
-    this.category = "";
     this.activeItem = "center"
     this.type = val;
     this.locationlist = []
@@ -86,10 +84,6 @@ export class WeighterPage implements OnInit {
 
   //-------------------- localsale button click func ----------//
   localsale(val) {
-    
-    this.place = "";
-    this.fishquality = "";
-    this.category = "";
     this.type = val;
     this.activeItem = "localsale"
     this.locationlist = []
@@ -99,10 +93,6 @@ export class WeighterPage implements OnInit {
 
   //-------------------- market button click func ----------//
   market(val) {
-    
-    this.place = "";
-    this.fishquality = "";
-    this.category = "";
     this.type = val;
     this.activeItem = "market"
     this.locationlist = []
@@ -112,10 +102,6 @@ export class WeighterPage implements OnInit {
 
   //-------------------- merchant button click func ----------//
   merchant(val) {
-   
-    this.place = "";
-    this.fishquality = "";
-    this.category = "";
     this.type = val;
     this.activeItem = "merchant"
     this.locationlist = []
@@ -131,7 +117,15 @@ export class WeighterPage implements OnInit {
     this.hr = hours + 12;
 
     this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
-    console.log(this.updateTime);
+    if (hours < 10) {
+      this.updateTime = this.myDate + ' ' + ("0" + hours) + ":" + minutes + ":" + seconds
+    } else {
+      this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+    }
+
+    if (this.type == null || undefined) {
+      this.type = "center"
+    }
 
     const data = {
       quality: this.fishquality,
@@ -164,7 +158,6 @@ export class WeighterPage implements OnInit {
         })
 
         this.showWeight = "";
-        this.activeItem = "";
         this.records()
       }
 
@@ -376,7 +369,9 @@ export class WeighterPage implements OnInit {
   }
 
   reciveWeight() {
-    this.showWeight = this.recivedWeightValue
+    if (this.recivedWeightValue >= 0) {
+      this.showWeight = this.recivedWeightValue;
+    }
   }
 
 

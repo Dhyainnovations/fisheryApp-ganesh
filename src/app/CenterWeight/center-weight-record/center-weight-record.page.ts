@@ -224,6 +224,7 @@ export class CenterWeightRecordPage implements OnInit {
         this.stockTableRec = [];
         this.stockTableEmpty = true
       } else {
+        this.stockTableEmpty = false
        this.centerStockRecords = response[0].center_records;
        this.localsaleStockRecords = response[1].localsale_records;
       }

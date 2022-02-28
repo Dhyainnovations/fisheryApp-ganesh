@@ -17,17 +17,17 @@ export class CenterManualWeighterPage implements OnInit {
       this.getTypeList()
       this.getLocationList()
       this.records();
-
-      this.activeItem = ""
       this.myDate = new Date();
       this.myDate = this.datepipe.transform(this.myDate, 'yyyy-MM-dd');
+      this.type = "center"
+      this.center('')
     });
 
 
 
   }
 
-  activeItem: any;
+  activeItem: any = "center";
   myDate: any;
   user: any;
   tdyDate: any;
@@ -37,7 +37,7 @@ export class CenterManualWeighterPage implements OnInit {
   currentDateTime: any;
   setpushdata: any = [];
   category: any;
-  type: any;
+  type: any = "center";
   place: any;
   location: any;
   weight: any;
@@ -54,7 +54,6 @@ export class CenterManualWeighterPage implements OnInit {
   }
 
   ngOnInit() {
-
     this.currentDateTime = this.datepipe.transform((new Date), 'yyyy-MM-dd hh:mm:ss');
     this.user = localStorage.getItem("Fishery-username",)
 
@@ -64,41 +63,41 @@ export class CenterManualWeighterPage implements OnInit {
     this.router.navigate(['/center-weight-record'])
   }
 
-    //-------------------- center button click func ----------//
-    center(val) {
-      this.activeItem = "center"
-      this.type = val;
-      this.locationlist = []
-      var GetLocation = localStorage.getItem('SetLocation');
-      this.locationlist = (JSON.parse((GetLocation)));
-    }
-  
-    //-------------------- localsale button click func ----------//
-    localsale(val) {
-      this.type = val;
-      this.activeItem = "localsale"
-      this.locationlist = []
-      var GetLocalSaleLocation = localStorage.getItem('localSaleLocation');
-      this.locationlist = (JSON.parse((GetLocalSaleLocation)));
-    }
-  
-    //-------------------- market button click func ----------//
-    market(val) {
-      this.type = val;
-      this.activeItem = "market"
-      this.locationlist = []
-      var GetMarketLocation = localStorage.getItem('marketLocation');
-      this.locationlist = (JSON.parse((GetMarketLocation)));
-    }
-  
-    //-------------------- merchant button click func ----------//
-    merchant(val) {
-      this.type = val;
-      this.activeItem = "merchant"
-      this.locationlist = []
-      var GetMerchantLocation = localStorage.getItem('merchantLocation');
-      this.locationlist = (JSON.parse((GetMerchantLocation)));
-    }
+  //-------------------- center button click func ----------//
+  center(val) {
+    this.activeItem = "center"
+    this.type = val;
+    this.locationlist = []
+    var GetLocation = localStorage.getItem('SetLocation');
+    this.locationlist = (JSON.parse((GetLocation)));
+  }
+
+  //-------------------- localsale button click func ----------//
+  localsale(val) {
+    this.type = val;
+    this.activeItem = "localsale"
+    this.locationlist = []
+    var GetLocalSaleLocation = localStorage.getItem('localSaleLocation');
+    this.locationlist = (JSON.parse((GetLocalSaleLocation)));
+  }
+
+  //-------------------- market button click func ----------//
+  market(val) {
+    this.type = val;
+    this.activeItem = "market"
+    this.locationlist = []
+    var GetMarketLocation = localStorage.getItem('marketLocation');
+    this.locationlist = (JSON.parse((GetMarketLocation)));
+  }
+
+  //-------------------- merchant button click func ----------//
+  merchant(val) {
+    this.type = val;
+    this.activeItem = "merchant"
+    this.locationlist = []
+    var GetMerchantLocation = localStorage.getItem('merchantLocation');
+    this.locationlist = (JSON.parse((GetMerchantLocation)));
+  }
 
   //----------------- Api call ------------//
   onlineApiCal() {
@@ -107,7 +106,16 @@ export class CenterManualWeighterPage implements OnInit {
     let seconds = new Date().getSeconds();
     this.hr = hours + 12;
     this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+    if (hours < 10) {
+      this.updateTime = this.myDate + ' ' + ("0" + hours) + ":" + minutes + ":" + seconds
+    } else {
+      this.updateTime = this.myDate + ' ' + hours + ":" + minutes + ":" + seconds
+    }
 
+    if(this.type == null || undefined){
+      this.type = "center"
+    }
+    
     const data = {
       quality: this.fishQuality,
       type: this.type,
@@ -120,6 +128,8 @@ export class CenterManualWeighterPage implements OnInit {
       updatedAt: this.updateTime
     }
 
+    console.log(data);
+    
 
     this.setpushdata.push(data);
     console.log(this.setpushdata);
@@ -148,8 +158,6 @@ export class CenterManualWeighterPage implements OnInit {
         })
 
         this.weight = "";
-        this.activeItem = "";
-
         this.records()
       }
 
