@@ -176,7 +176,6 @@ export class WeighterPage implements OnInit {
           title: 'Submited successfully.'
         })
 
-        this.showWeight = "";
         this.records()
       }
 
