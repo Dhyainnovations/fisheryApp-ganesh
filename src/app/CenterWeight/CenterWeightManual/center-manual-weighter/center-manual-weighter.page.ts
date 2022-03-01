@@ -173,8 +173,7 @@ export class CenterManualWeighterPage implements OnInit {
           icon: 'success',
           title: 'Submited successfully.'
         })
-
-        this.weight = "";
+        
         this.records()
       }
 
