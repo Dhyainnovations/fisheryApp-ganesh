@@ -64,7 +64,7 @@ export class WeighterPage implements OnInit {
   activeItem: any = "center";
   hr: any;
   updateTime: any;
-  showWeight: any = 1;
+  showWeight: any = 0;
   cardType: any;
   mergesdLocationList: any = []
   location: any;
