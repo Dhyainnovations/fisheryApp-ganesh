@@ -388,6 +388,7 @@ export class WeighterPage implements OnInit {
     
     if (this.recivedWeightValue >= 0) {
       this.showWeight = this.recivedWeightValue;
+      console.log(this.showWeight)
     }
   }
 
