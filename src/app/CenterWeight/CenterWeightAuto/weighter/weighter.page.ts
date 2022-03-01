@@ -194,7 +194,6 @@ export class WeighterPage implements OnInit {
     this.StoreTypeData = [];
     const formdata = new FormData();
     formdata.append("category", data.category);
-    console.log(data.category);
     this.category = data.category;
 
     var GetTypeBasedOnCategory = localStorage.getItem('SetTypeBasedOnCategory');
@@ -208,7 +207,6 @@ export class WeighterPage implements OnInit {
       if (this.category == listTypeBasedOnCategory.Categorypush) {
 
         this.StoreTypeData.push(listTypeBasedOnCategory.Typepush);
-        console.log(this.StoreTypeData);
 
       }
     }
@@ -235,8 +233,7 @@ export class WeighterPage implements OnInit {
     } else {
       this.location = splitted[1];
     }
-    console.log(this.place);
-    console.log(this.location);
+    
 
   }
 
@@ -251,7 +248,6 @@ export class WeighterPage implements OnInit {
 
     this.http.post('/delete_manual_weight', data).subscribe((response: any) => {
       this.tableRecodrs = response.records;
-      console.log(response);
       if (response.success == "true") {
         const Toast = Swal.mixin({
           toast: true,
@@ -302,7 +298,6 @@ export class WeighterPage implements OnInit {
   records() {
     this.http.get('/list_manual_weight',).subscribe((response: any) => {
       this.tableRecodrs = response.records;
-      console.log(response);
 
     }, (error: any) => {
       console.log(error);
@@ -382,16 +377,16 @@ export class WeighterPage implements OnInit {
 
   //----------- weighing scale recived data ---------//
   onDataReceive(val) {
-    alert(val)
+    
     var data = JSON.stringify(val)
-    alert(data)
-    alert(val)
+    
+    
     this.recivedWeightValue = Math.round(val * 100) / 100;
 
   }
 
   reciveWeight() {
-    alert(this.recivedWeightValue)
+    
     if (this.recivedWeightValue >= 0) {
       this.showWeight = this.recivedWeightValue;
     }
