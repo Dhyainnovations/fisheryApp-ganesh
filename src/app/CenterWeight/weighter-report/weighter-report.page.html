@@ -24,27 +24,27 @@
     </div>
 
     <div class="col-12 ion-text-center mt-3">
-      <p> Total Quantity = <span>{{totalQuantity}}KG</span></p>
+      <p style="font-size:18px;"> Total Quantity = <span>{{totalQuantity}}KG</span></p>
     </div>
 
     <!-----report Table----->
     <table class="table">
-      <thead style="background-color:#6863CC;" class="text-white">
+      <thead style="background-color:#6863CC;font-size:18px;" class="text-white">
         <tr>
-          <th scope="col-3">S.No</th>
-          <th scope="col-2">Place</th>
-          <th scope="col-2">Category </th>
-          <th scope="col-2">Quality </th>
-          <th scope="col-2">Quantity </th>
+          <th scope="col-3" style="font-size: 18px;">S.No</th>
+          <th scope="col-2" style="font-size: 18px;">Place</th>
+          <th scope="col-2" style="font-size: 18px;">Category </th>
+          <th scope="col-2" style="font-size: 18px;">Quality </th>
+          <th scope="col-2" style="font-size: 18px;">Quantity </th>
         </tr>
       </thead>
       <tbody *ngFor="let record of tableRecodrs   let i=index; ">
         <tr>
-          <td>{{i+1}} </td>
-          <td>{{record.place}}</td>
-          <td>{{record.category}}</td>
-          <td>{{record.quality}}</td>
-          <td>{{record.quantity}}</td>
+          <td style="font-size: 18px;">{{i+1}} </td>
+          <td style="font-size: 18px;">{{record.place}}</td>
+          <td style="font-size: 18px;">{{record.category}}</td>
+          <td style="font-size: 18px;">{{record.quality}}</td>
+          <td style="font-size: 18px;">{{record.quantity}}</td>
         </tr>
       </tbody>
     </table>
